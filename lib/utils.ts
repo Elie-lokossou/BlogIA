@@ -42,6 +42,16 @@ export function generateTableOfContents(html: string) {
   return { toc: headings, modifiedHtml };
 }
 
+/** Échappe les caractères spéciaux pour insertion sûre dans du XML (texte ou attribut). */
+export function escapeXml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 export function formatDate(dateString: string): string {
   return new Intl.DateTimeFormat("fr-FR", {
     day: "numeric",
