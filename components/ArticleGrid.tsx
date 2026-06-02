@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { Article, CATEGORIES, CAT_COLORS } from "@/lib/types";
@@ -15,15 +15,8 @@ export default function ArticleGrid({ articles }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    const cat = searchParams.get("cat") ?? "all";
-    const q = searchParams.get("q") ?? "";
-    setActiveCategory(cat);
-    setSearch(q);
-  }, [searchParams]);
+  const activeCategory = searchParams.get("cat") ?? "all";
+  const search = searchParams.get("q") ?? "";
 
   const syncUrl = useCallback(
     (cat: string, q: string) => {
@@ -37,12 +30,10 @@ export default function ArticleGrid({ articles }: Props) {
   );
 
   const setCategory = (cat: string) => {
-    setActiveCategory(cat);
     syncUrl(cat, search);
   };
 
   const setSearchQuery = (q: string) => {
-    setSearch(q);
     syncUrl(activeCategory, q);
   };
 
