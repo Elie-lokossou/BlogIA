@@ -46,6 +46,8 @@ export const AUTHOR = {
   longBio:
     "Je partage ici mes analyses sur l’IA, le développement web et la tech — avec des sources vérifiées et un regard praticien.",
   email: "contact@blogia.fr",
+  linkedin: "https://www.linkedin.com/in/john-elie-lokossou-494931392/",
+  portfolio: "https://jel-portfolio.netlify.app/",
   github: "https://github.com/Elie-lokossou",
   githubRepo: "https://github.com/Elie-lokossou/BlogIA",
 } as const;
