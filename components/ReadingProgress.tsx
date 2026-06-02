@@ -21,25 +21,11 @@ export default function ReadingProgress() {
   return (
     <div
       aria-hidden="true"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 3,
-        zIndex: 100,
-        background: "transparent",
-      }}
+      className="fixed top-0 left-0 right-0 h-[3px] z-[100] bg-transparent"
     >
       <div
-        style={{
-          height: "100%",
-          width: `${progress}%`,
-          background: "linear-gradient(90deg, #7c3aed, #a855f7, #f97316)",
-          transition: "width 0.1s linear",
-          borderRadius: "0 2px 2px 0",
-          boxShadow: "0 0 8px rgba(124,58,237,0.5)",
-        }}
+        className="h-full bg-violet-600 rounded-r-sm shadow-[0_0_8px_rgba(124,58,237,0.5)] transition-[width] duration-100 ease-linear"
+        style={{ width: `${progress}%` }}
       />
     </div>
   );

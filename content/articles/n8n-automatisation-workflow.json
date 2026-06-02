@@ -3,10 +3,16 @@
   "title": "n8n en 2026 : l'outil d'automatisation qui remplace 5 apps en une",
   "slug": "n8n-automatisation-workflow",
   "category": "outils-productivite",
-  "tags": ["n8n", "Automatisation", "No-code", "Workflow", "Productivité"],
+  "tags": [
+    "n8n",
+    "Automatisation",
+    "No-code",
+    "Workflow",
+    "Productivité"
+  ],
   "author": {
-    "name": "Théo Moreau",
-    "bio": "Expert en automatisation & no-code"
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
   },
   "publishedAt": "2026-05-05T08:00:00Z",
   "coverImage": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",

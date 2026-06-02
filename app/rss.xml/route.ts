@@ -1,6 +1,7 @@
 import { getAllArticles } from "@/lib/articles";
+import { AUTHOR, SITE } from "@/lib/site";
 
-const BASE_URL = (process.env.BLOG_URL ?? "https://blogia.fr").replace(/\/$/, "");
+const BASE_URL = SITE.url;
 
 export async function GET() {
   const articles = getAllArticles().slice(0, 20);
@@ -29,15 +30,15 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BlogIA — Tech, IA &amp; Innovation</title>
+    <title>${SITE.name} — ${AUTHOR.name}</title>
     <link>${BASE_URL}</link>
-    <description>Le blog qui décrypte l'intelligence artificielle, le développement, la cybersécurité et les innovations technologiques.</description>
+    <description>${SITE.description.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")}</description>
     <language>fr-FR</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${BASE_URL}/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>${BASE_URL}/favicon.ico</url>
-      <title>BlogIA</title>
+      <title>${SITE.name}</title>
       <link>${BASE_URL}</link>
     </image>
     ${items}

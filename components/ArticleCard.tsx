@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, Heart, MessageCircle, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import { Article, CAT_COLORS, DEFAULT_COVER } from "@/lib/types";
 import { getCategoryMeta, formatDate } from "@/lib/utils";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -14,10 +14,6 @@ export default function ArticleCard({ article, variant = "default" }: Props) {
   const cat = getCategoryMeta(article.category);
   const color = CAT_COLORS[article.category] ?? "#7c3aed";
   const img = article.coverImage ?? DEFAULT_COVER[article.category] ?? "";
-
-  const views = ((624 + article.slug.length * 137) % 2000) + 400;
-  const likes = ((111 + article.slug.length * 53) % 400) + 80;
-  const comments = ((17 + article.slug.length * 13) % 100) + 10;
 
   if (variant === "compact") {
     return (
@@ -61,7 +57,7 @@ export default function ArticleCard({ article, variant = "default" }: Props) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover"
         />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-[40%] bg-black/50 pointer-events-none" />
 
         {/* Badge catégorie */}
         <div style={{ position: "absolute", top: 10, left: 10, display: "flex", gap: 6, zIndex: 1 }}>
@@ -95,17 +91,10 @@ export default function ArticleCard({ article, variant = "default" }: Props) {
         </p>
 
         {/* Footer */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 10, borderTop: "1px solid #f9fafb" }}>
+        <div style={{ display: "flex", alignItems: "center", paddingTop: 10, borderTop: "1px solid #f9fafb" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: "#9ca3af" }}>
             <Clock size={11} /> {article.readingTime} min · {formatDate(article.publishedAt)}
           </span>
-          <div style={{ display: "flex", gap: 8 }}>
-            {[{ I: Eye, v: views }, { I: Heart, v: likes }, { I: MessageCircle, v: comments }].map(({ I, v }) => (
-              <span key={v} style={{ display: "flex", alignItems: "center", gap: 2, fontSize: 11, color: "#9ca3af" }}>
-                <I size={11} /> {v}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </Link>

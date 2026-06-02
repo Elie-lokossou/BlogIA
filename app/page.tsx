@@ -6,7 +6,8 @@ import HeroSlider from "@/components/HeroSlider";
 import ArticleGrid from "@/components/ArticleGrid";
 import Sidebar from "@/components/Sidebar";
 import CategoryIcon from "@/components/CategoryIcon";
-
+import AuthorIntro from "@/components/AuthorIntro";
+import { AUTHOR } from "@/lib/site";
 
 export default function HomePage() {
   const featured = getFeaturedArticles(5);
@@ -17,14 +18,19 @@ export default function HomePage() {
   return (
     <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
 
+      <AuthorIntro />
+
       {/* ── HERO ── */}
-      <div className="pt-6 pb-8">
-        {/* Tagline */}
+      <div className="pt-2 pb-8">
         <div className="mb-5">
-          <p className="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">Le blog Tech & IA en français</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">
+            Sélection de {AUTHOR.name}
+          </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
             Décryptez l&apos;IA,{" "}
-            <span className="text-violet-600">le développement</span>
+            <span className="text-violet-600">
+              le développement
+            </span>
             <br className="hidden sm:block" /> et les innovations tech.
           </h1>
         </div>

@@ -1,44 +1,28 @@
-# /nouvel-article — Créer un article d'actualité
+# /nouvel-article — Créer un article (agents Foundary uniquement)
 
-Workflow hybride pour produire un article BlogIA à partir de l'actualité d'un domaine : le script récupère l'actu et scaffolde un brouillon, l'agent finalise la rédaction (storytelling + vérification + diagramme), l'humain valide via Telegram.
+Workflow BlogIA : scripts Node + **agents Foundary** (slash commands). Ne pas utiliser d'autres subagents.
 
-## Entrée
-Une catégorie (facultatif). Si absente, demander laquelle parmi :
-`intelligence-artificielle`, `developpement`, `cybersecurite`, `tech-innovation`, `outils-productivite`.
+## Agents Foundary à utiliser
 
-## Étapes
+| Étape | Agent |
+|-------|--------|
+| Angle éditorial / calendrier (optionnel) | `/content_blog-strategy` |
+| Orchestration si plusieurs étapes | `/core_team` |
+| Audit avant publication | `/content_audit-article` |
+| Titres / excerpt / distribution (optionnel) | `/core_marketer` |
 
-1. **Récupérer l'actu**
-   - `npm run news -- <categorie>`
-   - Lire les candidats affichés (titre, date, source). Le cache est aussi écrit dans `scripts/news-cache/`.
+## Étapes (agent principal + scripts)
 
-2. **Choisir le sujet**
-   - Privilégier l'actu la plus récente ET la plus pertinente pour l'audience (dev / pro tech / passionnés d'IA francophones).
-   - Éviter les sujets hors périmètre éditorial (les 5 catégories sont la frontière).
+1. **Actu** — `npm run news -- <categorie>` (pas un agent).
+2. **Choix du sujet** — critères éditoriaux (`.cursor/rules/content-editorial.mdc`).
+3. **Brouillon** — `npm run news -- --draft <categorie> <index>`.
+4. **Vérification** — recherche web, **≥ 3 sources** dans `sources[]`.
+5. **Rédaction** — contenu HTML, auteur `John Elie LOKOSSOU` (`lib/site.ts`), storytelling + images illustratives.
+6. **Audit** — invoquer **`/content_audit-article`** avec le slug ou le JSON.
+7. **Publication** — `npm run publish <slug>` → validation Telegram.
 
-3. **Scaffolder le brouillon**
-   - `npm run news -- --draft <categorie> <index>`
-   - Crée `content/articles/<slug>.json` en `draft: true` avec la source d'origine pré-remplie.
+## Règles
 
-4. **Vérifier les faits**
-   - Faire une recherche web pour confirmer les faits clés et réunir **au moins 3 sources fiables** (privilégier sources primaires + presse tech réputée).
-   - Mettre à jour le tableau `sources[]` (titre, url, éditeur). Date du jour réelle (nous sommes en 2026).
-
-5. **Rédiger (storytelling)**
-   - Suivre `.cursor/rules/content-editorial.mdc` (ton, structure, storytelling, SEO).
-   - Optionnel avant publication : `/content_audit-article` (agent Foundary) sur le slug ou le contenu du JSON.
-   - Titre 50-60 car. accrocheur ; `excerpt` 140-160 car.
-   - Arc narratif : accroche → enjeu → déroulé → exemple/chiffre → chute.
-   - **Couverture** : photo Unsplash ciblée (mots-clés précis du sujet).
-   - **Corps** : 1 diagramme SVG explicatif (`<figure class="diagram">`) + 1-2 photos `<figure>` + au moins 1 `<table>` ou `callout` si pertinent.
-   - `readingTime` ≈ nb mots / 200, `tags` 3-5 pertinents.
-
-6. **Valider via Telegram**
-   - `npm run publish <slug>` → l'aperçu + la liste des sources s'affichent dans Telegram.
-   - La publication (`draft:false`) ne se fait qu'après le clic ✅. Le script refuse de publier sans `sources[]`.
-
-## Garde-fous
-- Pas de publication sans sources vérifiées.
-- Pas d'emoji dans l'UI/les composants (autorisés uniquement dans le `content` éditorial si vraiment utile — préférer les icônes/diagrammes).
-- Tout le texte visible en français.
-- Les articles en `draft: true` ne s'affichent jamais sur le blog.
+- Contenu en français, ton magazine tech (voir `content-editorial.mdc`).
+- `draft: true` jusqu'à confirmation Telegram.
+- Aucun autre agent que ceux listés dans `.cursor/agents/` (Foundary).

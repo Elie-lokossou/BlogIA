@@ -3,10 +3,15 @@
   "title": "GPT-5 est là : ce que change le nouveau modèle d'OpenAI",
   "slug": "gpt-5-ce-que-lon-sait",
   "category": "intelligence-artificielle",
-  "tags": ["GPT-5", "OpenAI", "LLM", "IA générative"],
+  "tags": [
+    "GPT-5",
+    "OpenAI",
+    "LLM",
+    "IA générative"
+  ],
   "author": {
-    "name": "Théo Moreau",
-    "bio": "Chercheur en IA & rédacteur tech"
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
   },
   "publishedAt": "2026-05-28T09:00:00Z",
   "coverImage": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&q=80",

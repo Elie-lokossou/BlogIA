@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DebugImageProbe from "@/components/DebugImageProbe";
+import { AUTHOR, SITE } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,16 +18,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "BlogIA — Tech, IA & Innovation",
-    template: "%s | BlogIA",
+    default: `${SITE.name} — ${AUTHOR.name}`,
+    template: `%s | ${SITE.name}`,
   },
-  description:
-    "Le blog qui décrypte l'intelligence artificielle, le développement, la cybersécurité et les innovations technologiques.",
-  keywords: ["intelligence artificielle", "IA", "tech", "développement", "cybersécurité"],
+  description: SITE.description,
+  keywords: ["intelligence artificielle", "IA", "tech", "développement", "cybersécurité", AUTHOR.name],
+  authors: [{ name: AUTHOR.name }],
+  creator: AUTHOR.name,
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "BlogIA",
+    siteName: SITE.name,
   },
 };
 
@@ -35,7 +37,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isDev = process.env.NODE_ENV === "development";
+  const showImageProbe = process.env.DEBUG_IMAGE_PROBE === "1";
 
   return (
     <html lang="fr" suppressHydrationWarning>
@@ -51,7 +53,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
         suppressHydrationWarning
       >
-        {isDev && <DebugImageProbe />}
+        {showImageProbe && <DebugImageProbe />}
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

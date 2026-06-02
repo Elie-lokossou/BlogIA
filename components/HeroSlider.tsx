@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Clock, User } from "lucide-react";
-import { Article, CAT_COLORS } from "@/lib/types";
+import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import AuthorAvatar from "@/components/AuthorAvatar";
+import { Article } from "@/lib/types";
 import { getCategoryMeta, formatDate } from "@/lib/utils";
 import CategoryIcon from "@/components/CategoryIcon";
 
@@ -29,7 +30,6 @@ export default function HeroSlider({ articles }: Props) {
 
   const cat = getCategoryMeta(article.category);
   const img = article.coverImage || PLACEHOLDER;
-  const color = CAT_COLORS[article.category] ?? "#7c3aed";
 
   return (
     <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.10)", border: "1px solid #e5e7eb", background: "#fff" }}>
@@ -44,8 +44,8 @@ export default function HeroSlider({ articles }: Props) {
           priority
         />
 
-        {/* Overlay dégradé bas */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, transparent 100%)", zIndex: 1 }} />
+        {/* Scrim aplati bas */}
+        <div className="absolute inset-x-0 bottom-0 h-[45%] bg-black/60 z-[1] pointer-events-none" />
 
         {/* Badge catégorie */}
         <div style={{ position: "absolute", top: 16, left: 16, zIndex: 2 }}>
@@ -84,9 +84,7 @@ export default function HeroSlider({ articles }: Props) {
           {/* Author + controls */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#7c3aed", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <User size={13} color="#fff" />
-              </div>
+              <AuthorAvatar size="sm" className="!w-7 !h-7 !text-[10px] ring-0 ring-offset-0 shadow-none" />
               <div>
                 <p style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>{article.author.name}</p>
                 <p style={{ fontSize: 10, color: "rgba(255,255,255,0.6)", display: "flex", alignItems: "center", gap: 3 }}>

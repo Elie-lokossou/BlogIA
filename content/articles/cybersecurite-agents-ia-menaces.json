@@ -3,10 +3,15 @@
   "title": "Quand les agents IA deviennent une menace pour la cybersécurité",
   "slug": "cybersecurite-agents-ia-menaces",
   "category": "cybersecurite",
-  "tags": ["Cybersécurité", "Agents IA", "Phishing", "Menaces"],
+  "tags": [
+    "Cybersécurité",
+    "Agents IA",
+    "Phishing",
+    "Menaces"
+  ],
   "author": {
-    "name": "Alexandre Renard",
-    "bio": "Expert en cybersécurité offensive & défensive"
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
   },
   "publishedAt": "2026-05-15T10:00:00Z",
   "coverImage": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&q=80",

@@ -11,6 +11,8 @@ import CategoryIcon from "@/components/CategoryIcon";
 import ArticleCard from "@/components/ArticleCard";
 import ReadingProgress from "@/components/ReadingProgress";
 import TableOfContents from "@/components/TableOfContents";
+import AuthorAvatar from "@/components/AuthorAvatar";
+import { AUTHOR, articleUrl } from "@/lib/site";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -98,9 +100,16 @@ export default async function ArticlePage({ params }: Props) {
           <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-gray-100">
             {/* Auteur */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style={{ background: color }}>
-                {article.author.name.charAt(0)}
-              </div>
+              {article.author.name === AUTHOR.name ? (
+                <AuthorAvatar size="sm" className="w-10 h-10" />
+              ) : (
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                  style={{ background: color }}
+                >
+                  {article.author.name.charAt(0)}
+                </div>
+              )}
               <div>
                 <p className="text-sm font-semibold text-gray-900">{article.author.name}</p>
                 {article.author.bio && (
@@ -195,7 +204,7 @@ export default async function ArticlePage({ params }: Props) {
             <Share2 className="w-4 h-4 text-gray-400" />
             <span className="text-sm font-semibold text-gray-600 mr-2">Partager</span>
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`https://blogia.fr/blog/${article.slug}`)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(articleUrl(article.slug))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-black text-white hover:bg-gray-800 transition-colors"
@@ -203,7 +212,7 @@ export default async function ArticlePage({ params }: Props) {
               <XIcon className="w-3.5 h-3.5" /> X / Twitter
             </a>
             <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://blogia.fr/blog/${article.slug}`)}`}
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl(article.slug))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors"

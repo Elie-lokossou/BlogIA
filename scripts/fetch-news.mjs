@@ -303,7 +303,7 @@ async function scaffoldDraft(category, item, useAI = false) {
     slug,
     category,
     tags: [],
-    author: { name: "Théo Moreau", bio: "Rédacteur tech & IA" },
+    author: { name: "John Elie LOKOSSOU", bio: "Créateur de BlogIA · Développement, IA & cybersécurité" },
     publishedAt: new Date().toISOString(),
     coverImage: "", // Laisser vide pour utiliser DEFAULT_COVER de type.ts
     readingTime: 0, // Sera auto-calculé

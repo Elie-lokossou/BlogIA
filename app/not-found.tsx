@@ -27,7 +27,7 @@ export default function NotFound() {
         Page introuvable
       </h1>
       <p className="text-gray-500 text-lg max-w-md mb-10 leading-relaxed">
-        Cette page n&apos;existe pas ou a été déplacée. Voici quelques pistes pour trouver ce que tu cherches.
+        Cette page n&apos;existe pas ou a été déplacée. Voici quelques pistes pour trouver ce que vous cherchez.
       </p>
 
       {/* Actions */}

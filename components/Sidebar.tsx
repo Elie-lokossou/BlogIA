@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import { Article, CAT_COLORS, DEFAULT_COVER } from "@/lib/types";
 import { getCategoryMeta } from "@/lib/utils";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -23,11 +23,11 @@ export default function Sidebar({ mustRead, latest }: Props) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
 
-      {/* ── MUST READ ── */}
+      {/* ── À LIRE ── */}
       {mustRead.length > 0 && (
         <div style={cardStyle}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: "#111", margin: 0 }}>Must Read</h3>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: "#111", margin: 0 }}>À lire</h3>
             <Link href="/blog" style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", textDecoration: "none" }}>Voir tout →</Link>
           </div>
 
@@ -45,7 +45,7 @@ export default function Sidebar({ mustRead, latest }: Props) {
                     sizes="(max-width: 1280px) 100vw, 320px"
                     className="object-cover"
                   />
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65), transparent)", zIndex: 1 }} />
+                  <div className="absolute inset-x-0 bottom-0 h-[45%] bg-black/50 z-[1] pointer-events-none" />
                   <span style={{ position: "absolute", top: 8, left: 8, zIndex: 2, display: "inline-flex", alignItems: "center", gap: 4, background: color, color: "#fff", fontSize: 9, fontWeight: 700, textTransform: "uppercase", padding: "3px 8px", borderRadius: 20, letterSpacing: "0.06em" }}>
                     <CategoryIcon category={mustRead[0].category} size={9} />
                     {getCategoryMeta(mustRead[0].category).label}
@@ -106,17 +106,16 @@ export default function Sidebar({ mustRead, latest }: Props) {
         </div>
       )}
 
-      {/* ── WEEKLY HIGHLIGHTS ── */}
+      {/* ── SÉLECTION ── */}
       {latest.length > 0 && (
         <div style={cardStyle}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: "#111", margin: 0 }}>Weekly Highlights</h3>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: "#111", margin: 0 }}>Sélection</h3>
             <Link href="/blog" style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", textDecoration: "none" }}>Voir tout →</Link>
           </div>
           <div style={{ display: "flex", gap: 10, overflowX: "auto", paddingBottom: 2 }}>
             {latest.map((article) => {
               const img = article.coverImage ?? DEFAULT_COVER[article.category] ?? "";
-              const vues = ((624 + article.slug.length * 97) % 3000) + 500;
               return (
                 <Link key={article.slug} href={`/blog/${article.slug}`} style={{ flexShrink: 0, width: 100, textDecoration: "none" }}>
                   <div style={{ width: 100, height: 70, borderRadius: 10, overflow: "hidden", backgroundColor: "#f3f4f6", marginBottom: 6, position: "relative" }}>
@@ -132,7 +131,7 @@ export default function Sidebar({ mustRead, latest }: Props) {
                     {article.title}
                   </p>
                   <p style={{ display: "flex", alignItems: "center", gap: 3, fontSize: 10, color: "#9ca3af", marginTop: 3 }}>
-                    <Eye size={9} /> {vues}
+                    <Clock size={9} /> {article.readingTime} min
                   </p>
                 </Link>
               );

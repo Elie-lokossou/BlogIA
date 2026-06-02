@@ -3,10 +3,16 @@
   "title": "Startups IA : les levées de fonds records qui reconfigurent l'écosystème tech",
   "slug": "startups-ia-levees-records",
   "category": "tech-innovation",
-  "tags": ["Startups", "VC", "Investissement", "IA", "Tech"],
+  "tags": [
+    "Startups",
+    "VC",
+    "Investissement",
+    "IA",
+    "Tech"
+  ],
   "author": {
-    "name": "Sofia Lemaire",
-    "bio": "Journaliste tech & analyste startup"
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
   },
   "publishedAt": "2026-05-10T07:00:00Z",
   "coverImage": "https://images.unsplash.com/photo-1559526324-593bc073d938?w=1200&q=80",

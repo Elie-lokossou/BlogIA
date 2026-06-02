@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
+import { SITE } from "@/lib/site";
 
-const BASE_URL = (process.env.BLOG_URL ?? "https://blogia.fr").replace(/\/$/, "");
+const BASE_URL = SITE.url;
 
 export default function robots(): MetadataRoute.Robots {
   return {

@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getAllArticles, getAllTagSlugs } from "@/lib/articles";
 import { CATEGORIES } from "@/lib/types";
+import { SITE } from "@/lib/site";
 
-const BASE_URL = (process.env.BLOG_URL ?? "https://blogia.fr").replace(/\/$/, "");
+const BASE_URL = SITE.url;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     { url: `${BASE_URL}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE_URL}/a-propos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
   ];
 
   const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({

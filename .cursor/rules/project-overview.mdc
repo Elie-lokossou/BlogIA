@@ -6,7 +6,7 @@ alwaysApply: true
 # BlogIA — Blog Tech & IA
 
 ## Stack
-- **Framework** : Next.js 15 (App Router)
+- **Framework** : Next.js 16 (App Router)
 - **UI** : React 19 + Tailwind CSS v4
 - **Langage** : TypeScript strict
 - **Contenu** : Chaque article = un fichier JSON dans `content/articles/`
@@ -18,8 +18,12 @@ content/articles/     ← fichiers JSON des articles (une article = un fichier)
 lib/
   types.ts            ← types TypeScript + définition des 5 catégories
   articles.ts         ← fonctions de lecture des JSON (getAllArticles, getArticleBySlug…)
-  utils.ts            ← helpers (formatDate, categoryColorClass…)
+  site.ts             ← identité site (SITE.url, AUTHOR, articleUrl, shareUrl)
+  utils.ts            ← helpers (formatDate, getCategoryMeta, generateTableOfContents…)
 components/           ← composants React réutilisables
+scripts/
+  fetch-news.mjs      ← pipeline RSS → brouillons JSON
+  publish.mjs         ← validation + confirmation Telegram avant publication
 app/
   page.tsx            ← homepage
   blog/page.tsx       ← liste de tous les articles
@@ -37,6 +41,9 @@ app/
 ## Règles globales
 - Toujours utiliser l'App Router (jamais `pages/`)
 - Tout le texte visible en **français**
-- Fond sombre : `bg-[#0a0a0f]`, couleurs zinc/violet
+- Thème magazine clair : fond `#f5f5f7`, accents violet/orange, texte `gray-*`
 - Pas de librairie externe pour lire les JSON — `fs` natif Node.js uniquement
 - Les articles en `draft: true` ne sont jamais affichés
+- Publication : `npm run publish <slug>` — confirmation Telegram obligatoire ; refuse sans `sources[]` non vide
+- URL canonique : `SITE.url` / `articleUrl(slug)` dans `lib/site.ts` (env `BLOG_URL`, défaut `https://blogia.fr`)
+- Auteur éditorial : John Elie LOKOSSOU (`lib/site.ts`)
