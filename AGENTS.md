@@ -28,3 +28,4 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - After clone: `foundary install` (Cursor); `.foundary/` is gitignored (~14 Mo).
 - Editorial workflow: `/nouvel-article` command → scripts `npm run news` → `/content_audit-article` → `npm run publish <slug>`.
 - Gitignore local-only paths: `.env.local`, `.foundary/`, `.cursor/debug-*.log`, `.cursor/hooks/`.
+- Dépôt GitHub : `https://github.com/Elie-lokossou/BlogIA` (John Elie LOKOSSOU) — plus d’org `BOVO-Digital`.

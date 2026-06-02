@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Mail, Rss, ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink, GitBranch, Mail, Rss } from "lucide-react";
 import { AUTHOR, SITE } from "@/lib/site";
 import AuthorAvatar from "@/components/AuthorAvatar";
 
@@ -63,6 +63,24 @@ export default function AboutPage() {
           <Rss className="w-4 h-4" />
           Flux RSS
         </Link>
+        <a
+          href={AUTHOR.github}
+          rel="noopener noreferrer"
+          target="_blank"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 no-underline hover:border-violet-200 hover:text-violet-700 transition-colors"
+        >
+          <ExternalLink className="w-4 h-4" />
+          GitHub
+        </a>
+        <a
+          href={AUTHOR.githubRepo}
+          rel="noopener noreferrer"
+          target="_blank"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 no-underline hover:border-violet-200 hover:text-violet-700 transition-colors"
+        >
+          <GitBranch className="w-4 h-4" />
+          Code source
+        </a>
       </div>
     </div>
   );

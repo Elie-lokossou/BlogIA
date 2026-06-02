@@ -2,6 +2,8 @@
 
 Blog tech et IA en français — **John Elie LOKOSSOU**. Stack Next.js 16 (App Router), React 19, Tailwind CSS v4. Le contenu éditorial vit dans `content/articles/` (un fichier JSON par article).
 
+**Dépôt GitHub :** [github.com/Elie-lokossou/BlogIA](https://github.com/Elie-lokossou/BlogIA) · **Profil :** [github.com/Elie-lokossou](https://github.com/Elie-lokossou)
+
 ## Prérequis
 
 - Node.js 20+
@@ -60,4 +62,39 @@ Orchestration éditoriale via les agents dans `.cursor/agents/` (`foundary list`
 
 ## Auteur
 
-**John Elie LOKOSSOU** — créateur de BlogIA · développement, IA et cybersécurité.
+**John Elie LOKOSSOU** — créateur de BlogIA · développement, IA et cybersécurité · [GitHub](https://github.com/Elie-lokossou)
+
+## Migration dépôt (BOVO-Digital → compte personnel)
+
+L’ancien dépôt organisation `BOVO-Digital/BlogIA` est remplacé par le compte personnel **Elie-lokossou**. Deux options :
+
+### Option A — Transférer le dépôt existant
+
+1. Sur [github.com/BOVO-Digital/BlogIA](https://github.com/BOVO-Digital/BlogIA) : **Settings → General → Danger Zone → Transfer ownership**
+2. Choisir le compte **Elie-lokossou** et confirmer le transfert (le repo garde l’historique).
+
+### Option B — Nouveau dépôt vide
+
+1. Créer un repo vide **BlogIA** sur [github.com/Elie-lokossou](https://github.com/Elie-lokossou) (sans README si vous poussez un dépôt local déjà peuplé).
+2. Mettre à jour le remote local :
+
+```bash
+git remote set-url origin https://github.com/Elie-lokossou/BlogIA.git
+git remote -v
+```
+
+3. Pousser la branche de travail (adapter le nom de branche si besoin) :
+
+```bash
+git push -u origin agents/project-analysis-summary
+```
+
+4. Ouvrir une PR sur `main` si nécessaire, puis merger.
+
+### Après la migration
+
+- **Vercel** : Project Settings → Git → reconnecter le dépôt `Elie-lokossou/BlogIA`, ou importer le projet depuis le nouveau remote.
+- **Variables** : vérifier `BLOG_URL` (URL canonique du site en production, ex. `https://blogia.fr`).
+- **Telegram** : `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID` inchangés dans `.env.local` / dashboard Vercel.
+
+> Ne lancez `git remote set-url` qu’après avoir créé ou transféré le dépôt cible, sinon `git push` échouera.

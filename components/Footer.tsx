@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Heart } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 import { CATEGORIES } from "@/lib/types";
 import { AUTHOR, SITE } from "@/lib/site";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -73,11 +73,22 @@ export default function Footer() {
             <p className="text-[11px] text-gray-500">
               © {year} {AUTHOR.name} · {SITE.name}
             </p>
-            <p className="text-[11px] text-gray-500 flex items-center gap-1">
-              Fait avec
-              <Heart className="w-3 h-3 text-orange-400 fill-orange-400/30" aria-hidden />
-              pour la tech & l&apos;IA
-            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={AUTHOR.github}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-[11px] text-gray-500 no-underline hover:text-violet-600 transition-colors inline-flex items-center gap-1"
+              >
+                <ExternalLink className="w-3 h-3" aria-hidden />
+                GitHub
+              </a>
+              <p className="text-[11px] text-gray-500 flex items-center gap-1">
+                Fait avec
+                <Heart className="w-3 h-3 text-orange-400 fill-orange-400/30" aria-hidden />
+                pour la tech & l&apos;IA
+              </p>
+            </div>
           </div>
         </div>
       </div>
