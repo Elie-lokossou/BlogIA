@@ -56,13 +56,22 @@ Voir `.env.example` :
 - `lib/` — articles, types, identité site (`lib/site.ts`)
 - `scripts/` — `fetch-news.mjs`, `publish.mjs`
 
+## Automatisation
+
+| Mécanisme | Rôle |
+|-----------|------|
+| [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | À chaque push/PR sur `main` : `npm ci`, `npm run lint`, `npm run build` (aucun secret requis). |
+| [`.github/workflows/news.yml`](.github/workflows/news.yml) | Planifié (lun/mer/ven 8h UTC) ou **manuel** via *Actions → Actualité RSS → Run workflow* : exécute `npm run news` et ouvre une PR si de nouveaux brouillons JSON apparaissent. |
+
+**Publication** : `npm run publish <slug>` reste **uniquement en local** — le bot Telegram exige `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID` (`.env.local`). Ne pas les exposer dans GitHub Actions.
+
 ## Agents Cursor (Foundary)
 
 Orchestration éditoriale via les agents dans `.cursor/agents/` (`foundary list`). Workflow type : `/nouvel-article` → `npm run news` → `/content_audit-article` → `npm run publish <slug>`.
 
 ## Auteur
 
-**John Elie LOKOSSOU** — créateur de BlogIA · développement, IA et cybersécurité · [GitHub](https://github.com/Elie-lokossou)
+**John Elie LOKOSSOU** — créateur de BlogIA · développement, IA et cybersécurité · [LinkedIn](https://www.linkedin.com/in/john-elie-lokossou-494931392/) · [Portfolio](https://jel-portfolio.netlify.app/) · [GitHub](https://github.com/Elie-lokossou)
 
 ## Migration dépôt (BOVO-Digital → compte personnel)
 

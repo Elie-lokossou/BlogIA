@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, Heart } from "lucide-react";
+import { ExternalLink, Globe, Heart, Mail } from "lucide-react";
 import { CATEGORIES } from "@/lib/types";
 import { AUTHOR, SITE } from "@/lib/site";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -75,6 +75,24 @@ export default function Footer() {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <a
+                href={AUTHOR.linkedin}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-[11px] text-gray-500 no-underline hover:text-violet-600 transition-colors inline-flex items-center gap-1"
+              >
+                <ExternalLink className="w-3 h-3" aria-hidden />
+                LinkedIn
+              </a>
+              <a
+                href={AUTHOR.portfolio}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-[11px] text-gray-500 no-underline hover:text-violet-600 transition-colors inline-flex items-center gap-1"
+              >
+                <Globe className="w-3 h-3" aria-hidden />
+                Portfolio
+              </a>
+              <a
                 href={AUTHOR.github}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -82,6 +100,13 @@ export default function Footer() {
               >
                 <ExternalLink className="w-3 h-3" aria-hidden />
                 GitHub
+              </a>
+              <a
+                href={`mailto:${AUTHOR.email}`}
+                className="text-[11px] text-gray-500 no-underline hover:text-violet-600 transition-colors inline-flex items-center gap-1"
+              >
+                <Mail className="w-3 h-3" aria-hidden />
+                Email
               </a>
               <p className="text-[11px] text-gray-500 flex items-center gap-1">
                 Fait avec
