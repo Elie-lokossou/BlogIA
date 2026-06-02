@@ -61,9 +61,22 @@ Voir `.env.example` :
 | Mécanisme | Rôle |
 |-----------|------|
 | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | À chaque push/PR sur `main` : `npm ci`, `npm run lint`, `npm run build` (aucun secret requis). |
-| [`.github/workflows/news.yml`](.github/workflows/news.yml) | Planifié (lun/mer/ven 8h UTC) ou **manuel** via *Actions → Actualité RSS → Run workflow* : exécute `npm run news` et ouvre une PR si de nouveaux brouillons JSON apparaissent. |
+| [`.github/workflows/news.yml`](.github/workflows/news.yml) | **Secours manuel** uniquement (*Actions → Actualité RSS → Run workflow*) : `npm run news` + PR de brouillons. Le cron GitHub est désactivé pour éviter le doublon avec Cursor. |
+| [Cursor Automations](https://cursor.com/automations) | Planification principale (lun/mer/ven 8h UTC) — voir ci-dessous. |
 
-**Publication** : `npm run publish <slug>` reste **uniquement en local** — le bot Telegram exige `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID` (`.env.local`). Ne pas les exposer dans GitHub Actions.
+**Publication** : `npm run publish <slug>` reste **uniquement en local** — le bot Telegram exige `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID` (`.env.local`). Ne pas les exposer dans GitHub Actions ni dans Cursor.
+
+### Automatisation Cursor (brouillons RSS)
+
+Environnement Cloud Agent : [`.cursor/environment.json`](.cursor/environment.json) (`npm ci` + `npm run build`). Prompt prêt à l’emploi : [`.cursor/automations/news-drafts.md`](.cursor/automations/news-drafts.md).
+
+1. Ouvrir [cursor.com/automations](https://cursor.com/automations) → **New automation**.
+2. **Schedule** : `0 8 * * 1,3,5` (lundi, mercredi, vendredi à 08:00 UTC).
+3. **Repository** : `Elie-lokossou/BlogIA` — branche **`main`**.
+4. **Tool** : activer **Open pull request** (ou équivalent PR).
+5. Coller le bloc **Prompt** depuis [`.cursor/automations/news-drafts.md`](.cursor/automations/news-drafts.md).
+6. **Cloud Agent → Secrets** (optionnel) : ajouter `GEMINI_API_KEY` pour la rédaction assistée (`--write` sur `npm run news`). Ne pas y mettre les secrets Telegram.
+7. Publier l’automation. La publication d’articles reste **`npm run publish <slug>`** en local après validation Telegram.
 
 ## Agents Cursor (Foundary)
 

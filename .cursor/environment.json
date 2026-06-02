@@ -1,0 +1,7 @@
+{
+  "name": "BlogIA — Node 20",
+  "install": "npm ci && npm run build"
+  // Secrets optionnels (onglet Secrets du Cloud Agent Cursor, pas dans ce fichier) :
+  // GEMINI_API_KEY — rédaction assistée npm run news -- --write
+  // Ne pas configurer TELEGRAM_BOT_TOKEN ni TELEGRAM_CHAT_ID ici (publication locale uniquement).
+}

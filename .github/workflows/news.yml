@@ -1,9 +1,10 @@
 name: Actualité RSS (brouillons)
 
 on:
-  schedule:
-    # Lundi, mercredi, vendredi à 08:00 UTC
-    - cron: "0 8 * * 1,3,5"
+  # Planification désactivée : l’automatisation principale est Cursor Automations
+  # (voir README « Automatisation Cursor » et .cursor/automations/news-drafts.md).
+  # schedule:
+  #   - cron: "0 8 * * 1,3,5"
   workflow_dispatch:
 
 permissions:
