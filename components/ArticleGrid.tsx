@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
-import { Article, CATEGORIES } from "@/lib/types";
+import { Article, CATEGORIES, CAT_COLORS } from "@/lib/types";
 import CategoryIcon from "@/components/CategoryIcon";
 import ArticleCard from "./ArticleCard";
 
@@ -10,33 +11,57 @@ interface Props {
   articles: Article[];
 }
 
-const CAT_COLORS: Record<string, string> = {
-  "intelligence-artificielle": "#7c3aed",
-  "developpement": "#2563eb",
-  "cybersecurite": "#dc2626",
-  "tech-innovation": "#ea580c",
-  "outils-productivite": "#16a34a",
-};
-
 export default function ArticleGrid({ articles }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    const cat = searchParams.get("cat") ?? "all";
+    const q = searchParams.get("q") ?? "";
+    setActiveCategory(cat);
+    setSearch(q);
+  }, [searchParams]);
+
+  const syncUrl = useCallback(
+    (cat: string, q: string) => {
+      const params = new URLSearchParams();
+      if (cat !== "all") params.set("cat", cat);
+      if (q.trim()) params.set("q", q.trim());
+      const query = params.toString();
+      router.replace(query ? `/?${query}` : "/", { scroll: false });
+    },
+    [router],
+  );
+
+  const setCategory = (cat: string) => {
+    setActiveCategory(cat);
+    syncUrl(cat, search);
+  };
+
+  const setSearchQuery = (q: string) => {
+    setSearch(q);
+    syncUrl(activeCategory, q);
+  };
+
   const filtered = articles.filter((a) => {
     const matchesCat = activeCategory === "all" || a.category === activeCategory;
+    const q = search.toLowerCase();
     const matchesSearch =
-      search === "" ||
-      a.title.toLowerCase().includes(search.toLowerCase()) ||
-      a.excerpt.toLowerCase().includes(search.toLowerCase());
+      q === "" ||
+      a.title.toLowerCase().includes(q) ||
+      a.excerpt.toLowerCase().includes(q);
     return matchesCat && matchesSearch;
   });
 
   return (
     <div>
-      {/* Filter bar */}
       <div className="flex flex-wrap items-center gap-2 mb-5">
         <button
-          onClick={() => setActiveCategory("all")}
+          type="button"
+          onClick={() => setCategory("all")}
           className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[13px] font-semibold border-none cursor-pointer transition-all duration-150 ${
             activeCategory === "all"
               ? "bg-gray-900 text-white shadow-sm"
@@ -52,11 +77,12 @@ export default function ArticleGrid({ articles }: Props) {
           return (
             <button
               key={cat.slug}
-              onClick={() => setActiveCategory(cat.slug)}
+              type="button"
+              onClick={() => setCategory(cat.slug)}
               className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[13px] font-semibold border-none cursor-pointer transition-all duration-150 ${
                 active ? "text-white shadow-sm" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
-              style={active ? { background: color } : {}}
+              style={active ? { backgroundColor: color } : undefined}
             >
               <CategoryIcon category={cat.slug} size={12} />
               {cat.label}
@@ -64,15 +90,15 @@ export default function ArticleGrid({ articles }: Props) {
           );
         })}
 
-        {/* Search */}
         <div className="ml-auto flex items-center gap-2 border border-gray-200 rounded-full px-4 py-1.5 bg-white focus-within:border-violet-400 focus-within:ring-2 focus-within:ring-violet-100 transition-all">
-          <Search size={13} className="text-gray-400 flex-shrink-0" />
+          <Search size={13} className="text-gray-400 shrink-0" />
           <input
-            type="text"
+            type="search"
             placeholder="Rechercher…"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="text-[13px] outline-none w-28 sm:w-36 text-gray-800 bg-transparent placeholder-gray-400 border-none"
+            aria-label="Rechercher des articles"
           />
         </div>
       </div>

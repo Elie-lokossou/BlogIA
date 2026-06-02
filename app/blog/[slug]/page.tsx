@@ -111,7 +111,16 @@ export default async function ArticlePage({ params }: Props) {
                 </div>
               )}
               <div>
-                <p className="text-sm font-semibold text-gray-900">{article.author.name}</p>
+                {article.author.name === AUTHOR.name ? (
+                  <Link
+                    href="/a-propos"
+                    className="text-sm font-semibold text-gray-900 hover:text-violet-600 transition-colors"
+                  >
+                    {article.author.name}
+                  </Link>
+                ) : (
+                  <p className="text-sm font-semibold text-gray-900">{article.author.name}</p>
+                )}
                 {article.author.bio && (
                   <p className="text-xs text-gray-400">{article.author.bio}</p>
                 )}

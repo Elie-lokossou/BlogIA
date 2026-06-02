@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { FileText } from "lucide-react";
 import { getFeaturedArticles, getAllArticles } from "@/lib/articles";
@@ -80,7 +81,9 @@ export default function HomePage() {
               Voir tout →
             </Link>
           </div>
-          <ArticleGrid articles={all} />
+          <Suspense fallback={<p className="text-sm text-gray-400 py-8">Chargement des filtres…</p>}>
+            <ArticleGrid articles={all} />
+          </Suspense>
         </div>
 
         {/* Sidebar — sticky uniquement sur lg */}

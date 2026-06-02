@@ -11,76 +11,74 @@ interface Props {
   latest: Article[];
 }
 
-const cardStyle: React.CSSProperties = {
-  background: "#fff",
-  borderRadius: 16,
-  border: "1px solid #f3f4f6",
-  boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
-  padding: "18px",
-};
+const cardClass =
+  "bg-white rounded-2xl border border-gray-100 shadow-[0_1px_4px_rgba(0,0,0,0.05)] p-[18px]";
 
 export default function Sidebar({ mustRead, latest }: Props) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-
-      {/* ── À LIRE ── */}
+    <div className="flex flex-col gap-3.5">
       {mustRead.length > 0 && (
-        <div style={cardStyle}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: "#111", margin: 0 }}>À lire</h3>
-            <Link href="/blog" style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", textDecoration: "none" }}>Voir tout →</Link>
+        <div className={cardClass}>
+          <div className="flex items-center justify-between mb-3.5">
+            <h3 className="text-sm font-bold text-gray-900 m-0">À lire</h3>
+            <Link href="/blog" className="text-[11px] font-semibold text-violet-600 no-underline">
+              Voir tout →
+            </Link>
           </div>
 
-          {/* Article vedette */}
           {mustRead[0] && (() => {
-            const img = mustRead[0].coverImage ?? DEFAULT_COVER[mustRead[0].category] ?? "";
-            const color = CAT_COLORS[mustRead[0].category] ?? "#7c3aed";
+            const featured = mustRead[0];
+            const img = featured.coverImage ?? DEFAULT_COVER[featured.category] ?? "";
+            const color = CAT_COLORS[featured.category] ?? "#7c3aed";
             return (
-              <Link href={`/blog/${mustRead[0].slug}`} style={{ display: "block", textDecoration: "none", marginBottom: 14 }}>
-                <div style={{ position: "relative", height: 140, borderRadius: 12, overflow: "hidden", backgroundColor: "#f3f4f6", marginBottom: 10 }}>
+              <Link
+                href={`/blog/${featured.slug}`}
+                className="block no-underline mb-3.5"
+              >
+                <div className="relative h-[140px] rounded-xl overflow-hidden bg-gray-100 mb-2.5">
                   <Image
                     src={img}
-                    alt={mustRead[0].title}
+                    alt={featured.title}
                     fill
                     sizes="(max-width: 1280px) 100vw, 320px"
                     className="object-cover"
                   />
                   <div className="absolute inset-x-0 bottom-0 h-[45%] bg-black/50 z-[1] pointer-events-none" />
-                  <span style={{ position: "absolute", top: 8, left: 8, zIndex: 2, display: "inline-flex", alignItems: "center", gap: 4, background: color, color: "#fff", fontSize: 9, fontWeight: 700, textTransform: "uppercase", padding: "3px 8px", borderRadius: 20, letterSpacing: "0.06em" }}>
-                    <CategoryIcon category={mustRead[0].category} size={9} />
-                    {getCategoryMeta(mustRead[0].category).label}
+                  <span
+                    className="absolute top-2 left-2 z-[2] inline-flex items-center gap-1 text-white text-[9px] font-bold uppercase px-2 py-0.5 rounded-full tracking-wider"
+                    style={{ backgroundColor: color }}
+                  >
+                    <CategoryIcon category={featured.category} size={9} />
+                    {getCategoryMeta(featured.category).label}
                   </span>
                 </div>
-                <p style={{ fontSize: 13, fontWeight: 700, color: "#111", lineHeight: 1.4, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", marginBottom: 4 }}>
-                  {mustRead[0].title}
+                <p className="text-[13px] font-bold text-gray-900 leading-snug line-clamp-2 mb-1">
+                  {featured.title}
                 </p>
-                <p style={{ fontSize: 11, color: "#9ca3af", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                  {mustRead[0].excerpt}
+                <p className="text-[11px] text-gray-400 leading-normal line-clamp-2">
+                  {featured.excerpt}
                 </p>
               </Link>
             );
           })()}
 
-          {/* Articles secondaires */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div className="flex flex-col gap-2.5">
             {mustRead.slice(1, 4).map((article) => {
               const img = article.coverImage ?? DEFAULT_COVER[article.category] ?? "";
               return (
-                <Link key={article.slug} href={`/blog/${article.slug}`} style={{ display: "flex", gap: 10, textDecoration: "none" }}>
-                  <div style={{ width: 52, height: 44, borderRadius: 8, overflow: "hidden", backgroundColor: "#f3f4f6", flexShrink: 0, position: "relative" }}>
-                    <Image
-                      src={img}
-                      alt={article.title}
-                      fill
-                      sizes="52px"
-                      className="object-cover"
-                    />
+                <Link
+                  key={article.slug}
+                  href={`/blog/${article.slug}`}
+                  className="flex gap-2.5 no-underline"
+                >
+                  <div className="w-[52px] h-11 rounded-lg overflow-hidden bg-gray-100 shrink-0 relative">
+                    <Image src={img} alt={article.title} fill sizes="52px" className="object-cover" />
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: 12, fontWeight: 600, color: "#111", lineHeight: 1.35, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", marginBottom: 2 }}>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-gray-900 leading-snug line-clamp-2 mb-0.5">
                       {article.title}
                     </p>
-                    <p style={{ display: "flex", alignItems: "center", gap: 3, fontSize: 10, color: "#9ca3af" }}>
+                    <p className="flex items-center gap-0.5 text-[10px] text-gray-400">
                       <Clock size={9} /> {article.readingTime} min
                     </p>
                   </div>
@@ -91,14 +89,15 @@ export default function Sidebar({ mustRead, latest }: Props) {
         </div>
       )}
 
-      {/* ── DERNIERS ARTICLES ── */}
       {latest.length > 0 && (
-        <div style={cardStyle}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: "#111", margin: 0 }}>Derniers articles</h3>
-            <Link href="/blog" style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", textDecoration: "none" }}>Voir tout →</Link>
+        <div className={cardClass}>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-bold text-gray-900 m-0">Derniers articles</h3>
+            <Link href="/blog" className="text-[11px] font-semibold text-violet-600 no-underline">
+              Voir tout →
+            </Link>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div className="flex flex-col gap-2.5">
             {latest.map((article) => (
               <ArticleCard key={article.slug} article={article} variant="compact" />
             ))}
@@ -106,31 +105,30 @@ export default function Sidebar({ mustRead, latest }: Props) {
         </div>
       )}
 
-      {/* ── SÉLECTION ── */}
       {latest.length > 0 && (
-        <div style={cardStyle}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: "#111", margin: 0 }}>Sélection</h3>
-            <Link href="/blog" style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", textDecoration: "none" }}>Voir tout →</Link>
+        <div className={cardClass}>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-bold text-gray-900 m-0">Sélection</h3>
+            <Link href="/blog" className="text-[11px] font-semibold text-violet-600 no-underline">
+              Voir tout →
+            </Link>
           </div>
-          <div style={{ display: "flex", gap: 10, overflowX: "auto", paddingBottom: 2 }}>
+          <div className="flex gap-2.5 overflow-x-auto pb-0.5">
             {latest.map((article) => {
               const img = article.coverImage ?? DEFAULT_COVER[article.category] ?? "";
               return (
-                <Link key={article.slug} href={`/blog/${article.slug}`} style={{ flexShrink: 0, width: 100, textDecoration: "none" }}>
-                  <div style={{ width: 100, height: 70, borderRadius: 10, overflow: "hidden", backgroundColor: "#f3f4f6", marginBottom: 6, position: "relative" }}>
-                    <Image
-                      src={img}
-                      alt={article.title}
-                      fill
-                      sizes="100px"
-                      className="object-cover"
-                    />
+                <Link
+                  key={article.slug}
+                  href={`/blog/${article.slug}`}
+                  className="shrink-0 w-[100px] no-underline"
+                >
+                  <div className="w-[100px] h-[70px] rounded-[10px] overflow-hidden bg-gray-100 mb-1.5 relative">
+                    <Image src={img} alt={article.title} fill sizes="100px" className="object-cover" />
                   </div>
-                  <p style={{ fontSize: 11, fontWeight: 600, color: "#111", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                  <p className="text-[11px] font-semibold text-gray-900 leading-tight line-clamp-2">
                     {article.title}
                   </p>
-                  <p style={{ display: "flex", alignItems: "center", gap: 3, fontSize: 10, color: "#9ca3af", marginTop: 3 }}>
+                  <p className="flex items-center gap-0.5 text-[10px] text-gray-400 mt-0.5">
                     <Clock size={9} /> {article.readingTime} min
                   </p>
                 </Link>
