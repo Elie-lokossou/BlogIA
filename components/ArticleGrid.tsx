@@ -34,16 +34,14 @@ export default function ArticleGrid({ articles }: Props) {
   return (
     <div>
       {/* Filter bar */}
-      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 20 }}>
+      <div className="flex flex-wrap items-center gap-2 mb-5">
         <button
           onClick={() => setActiveCategory("all")}
-          style={{
-            display: "inline-flex", alignItems: "center", gap: 5,
-            padding: "7px 16px", borderRadius: 30, fontSize: 13, fontWeight: 600, cursor: "pointer", border: "none",
-            background: activeCategory === "all" ? "#111" : "#f3f4f6",
-            color: activeCategory === "all" ? "#fff" : "#374151",
-            transition: "all .15s",
-          }}
+          className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[13px] font-semibold border-none cursor-pointer transition-all duration-150 ${
+            activeCategory === "all"
+              ? "bg-gray-900 text-white shadow-sm"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800"
+          }`}
         >
           Tous
         </button>
@@ -55,40 +53,37 @@ export default function ArticleGrid({ articles }: Props) {
             <button
               key={cat.slug}
               onClick={() => setActiveCategory(cat.slug)}
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
-                padding: "7px 16px", borderRadius: 30, fontSize: 13, fontWeight: 600, cursor: "pointer", border: "none",
-                background: active ? color : "#f3f4f6",
-                color: active ? "#fff" : "#374151",
-                transition: "all .15s",
-              }}
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[13px] font-semibold border-none cursor-pointer transition-all duration-150 ${
+                active ? "text-white shadow-sm" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+              style={active ? { background: color } : {}}
             >
-              <CategoryIcon category={cat.slug} size={13} />
+              <CategoryIcon category={cat.slug} size={12} />
               {cat.label}
             </button>
           );
         })}
 
         {/* Search */}
-        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8, border: "1.5px solid #e5e7eb", borderRadius: 30, padding: "7px 16px", background: "#fff" }}>
-          <Search size={13} style={{ color: "#9ca3af" }} />
+        <div className="ml-auto flex items-center gap-2 border border-gray-200 rounded-full px-4 py-1.5 bg-white focus-within:border-violet-400 focus-within:ring-2 focus-within:ring-violet-100 transition-all">
+          <Search size={13} className="text-gray-400 flex-shrink-0" />
           <input
             type="text"
             placeholder="Rechercher…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ fontSize: 13, outline: "none", width: 130, color: "#111", background: "transparent", border: "none" }}
+            className="text-[13px] outline-none w-28 sm:w-36 text-gray-800 bg-transparent placeholder-gray-400 border-none"
           />
         </div>
       </div>
 
       {filtered.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "60px 0", color: "#9ca3af" }}>
-          <Search size={32} style={{ margin: "0 auto 12px", opacity: 0.35 }} />
-          <p style={{ fontSize: 14 }}>Aucun article trouvé</p>
+        <div className="text-center py-16 text-gray-400">
+          <Search size={32} className="mx-auto mb-3 opacity-35" />
+          <p className="text-sm">Aucun article trouvé</p>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filtered.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}

@@ -1,6 +1,6 @@
 {
   "id": "gpt-5-ce-que-lon-sait",
-  "title": "GPT-5 : tout ce qu'on sait sur le prochain modèle d'OpenAI",
+  "title": "GPT-5 est là : ce que change le nouveau modèle d'OpenAI",
   "slug": "gpt-5-ce-que-lon-sait",
   "category": "intelligence-artificielle",
   "tags": ["GPT-5", "OpenAI", "LLM", "IA générative"],
@@ -9,11 +9,32 @@
     "bio": "Chercheur en IA & rédacteur tech"
   },
   "publishedAt": "2026-05-28T09:00:00Z",
-  "coverImage": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&q=80",
-  "excerpt": "OpenAI prépare GPT-5, son modèle le plus ambitieux à ce jour. Performances, multimodalité, raisonnement — voici ce que les indices et fuites révèlent.",
+  "coverImage": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&q=80",
   "readingTime": 6,
   "featured": true,
-  "draft": false,
-  "tags_seo": ["openai gpt-5", "modèle ia 2026", "llm performance"],
-  "content": "<h2>GPT-5 approche à grands pas</h2><p>Depuis plusieurs mois, OpenAI tease discrètement le successeur de GPT-4o. Les indices s'accumulent : publications de recherche, offres d'emploi ciblées et déclarations de Sam Altman pointent tous vers une architecture fondamentalement repensée.</p><h2>Ce que les fuites révèlent</h2><p>Selon plusieurs sources proches de l'entreprise, GPT-5 serait entraîné sur un corpus multimodal massif incluant vidéos, audio et données synthétiques générées par des agents IA. Le modèle serait capable de <strong>raisonnement multi-étapes</strong> bien plus fiable que ses prédécesseurs.</p><blockquote>\"GPT-5 va changer la façon dont les développeurs pensent l'IA\" — Sam Altman, conférence Developers Day 2026</blockquote><h2>Multimodalité avancée</h2><p>L'un des axes majeurs serait une compréhension native de la vidéo en temps réel — une capacité absente des modèles actuels. Couplée à une latence réduite, cette fonctionnalité ouvrirait la voie à des assistants conversationnels capables de regarder et d'analyser une scène live.</p><h2>Date de sortie</h2><p>Aucune date officielle n'a été communiquée. Les estimations convergent vers le second semestre 2026. OpenAI semble prendre le temps nécessaire pour s'assurer de la sécurité du modèle avant tout déploiement public.</p>"
+  "draft": true,
+  "excerpt": "OpenAI a lancé GPT-5 le 7 août 2025 : un système unifié qui combine un modèle rapide, un mode de raisonnement approfondi et un routeur temps réel. Voici les faits vérifiés.",
+  "content": "<h2>Un lancement officiel, plus une rumeur</h2><p>OpenAI a annoncé et déployé GPT-5 le <strong>7 août 2025</strong>. Le modèle est décrit par l'entreprise comme son système « le plus intelligent, le plus rapide et le plus utile » à ce jour, avec des performances de pointe en code, mathématiques, écriture, santé et perception visuelle.</p><figure><img src=\"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=900&q=80\" alt=\"Interface d'un assistant IA avancé\" /><figcaption>GPT-5 est disponible pour tous les utilisateurs de ChatGPT, y compris les comptes gratuits</figcaption></figure><h2>Un système unifié, pas un seul modèle</h2><p>La grande nouveauté est architecturale : GPT-5 n'est pas un modèle unique mais un <strong>système unifié</strong> composé d'un modèle rapide pour la majorité des requêtes, d'un modèle de raisonnement approfondi (« GPT-5 thinking ») pour les problèmes complexes, et d'un <strong>routeur temps réel</strong> qui choisit automatiquement lequel utiliser selon la complexité et l'intention exprimée.</p><blockquote>GPT-5 est notre meilleur système à ce jour, un bond significatif en intelligence par rapport à tous nos modèles précédents. — OpenAI, annonce officielle</blockquote><h2>Trois tailles pour les développeurs</h2><p>Dans l'API, GPT-5 est proposé en trois variantes pour ajuster coût et latence : <code>gpt-5</code>, <code>gpt-5-mini</code> et <code>gpt-5-nano</code>. OpenAI a aussi introduit de nouveaux paramètres : <code>verbosity</code> (low/medium/high) et une valeur <code>minimal</code> pour <code>reasoning_effort</code>.</p><h2>Tarifs API officiels</h2><table><thead><tr><th>Modèle</th><th>Input / 1M tokens</th><th>Output / 1M tokens</th></tr></thead><tbody><tr><td>gpt-5</td><td>1,25 $</td><td>10 $</td></tr><tr><td>gpt-5-mini</td><td>0,25 $</td><td>2 $</td></tr><tr><td>gpt-5-nano</td><td>0,05 $</td><td>0,40 $</td></tr></tbody></table><h2>Performances mesurées</h2><p>GPT-5 atteint l'état de l'art sur plusieurs benchmarks de code : <strong>74,9 % sur SWE-bench Verified</strong> et <strong>88 % sur Aider polyglot</strong>. OpenAI met en avant une réduction des hallucinations et un meilleur suivi des instructions, après environ 5 000 heures de tests de sécurité.</p><div class=\"callout\"><strong>Pour les développeurs :</strong> GPT-5 est le modèle par défaut dans Codex CLI et disponible via les API Responses et Chat Completions. Il excelle en débogage, édition de code et compréhension de codebases complexes.</div><h2>Disponibilité</h2><p>GPT-5 a été déployé dès le jour du lancement pour les utilisateurs Free, Plus, Pro et Team, l'accès Enterprise et Edu suivant la semaine d'après. Les abonnés Pro disposent en plus de <strong>GPT-5 Pro</strong>, une version à raisonnement étendu pour des réponses plus fiables.</p><div class=\"callout callout-success\"><strong>À retenir :</strong> contrairement aux générations précédentes réservées d'abord aux abonnés payants, GPT-5 a été rendu accessible aux utilisateurs gratuits dès le lancement — une première pour un modèle doté de capacités de raisonnement.</div>",
+  "sources": [
+    {
+      "title": "Introducing GPT-5",
+      "url": "https://openai.com/index/introducing-gpt-5/",
+      "publisher": "OpenAI"
+    },
+    {
+      "title": "Introducing GPT-5 for developers",
+      "url": "https://openai.com/index/introducing-gpt-5-for-developers/",
+      "publisher": "OpenAI"
+    },
+    {
+      "title": "GPT-5 System Card",
+      "url": "https://openai.com/index/gpt-5-system-card/",
+      "publisher": "OpenAI"
+    },
+    {
+      "title": "OpenAI launches new GPT-5 model for all ChatGPT users",
+      "url": "https://www.cnbc.com/2025/08/07/openai-launches-gpt-5-model-for-all-chatgpt-users.html",
+      "publisher": "CNBC"
+    }
+  ]
 }

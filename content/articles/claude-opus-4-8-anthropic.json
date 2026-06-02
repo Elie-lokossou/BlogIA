@@ -1,0 +1,40 @@
+{
+  "id": "claude-opus-4-8-anthropic",
+  "title": "Claude Opus 4.8 : Anthropic mise sur l'honnêteté avant Mythos",
+  "slug": "claude-opus-4-8-anthropic",
+  "category": "intelligence-artificielle",
+  "tags": [
+    "Anthropic",
+    "Claude",
+    "LLM",
+    "Agents IA"
+  ],
+  "author": {
+    "name": "Théo Moreau",
+    "bio": "Chercheur en IA & rédacteur tech"
+  },
+  "publishedAt": "2026-05-30T18:38:09.061Z",
+  "coverImage": "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80",
+  "readingTime": 6,
+  "featured": true,
+  "draft": false,
+  "excerpt": "Le 28 mai 2026, Anthropic a déployé Claude Opus 4.8 : plus honnête, plus autonome et capable d'orchestrer des centaines de sous-agents. Un palier avant l'arrivée des modèles de classe Mythos.",
+  "content": "<h2>Anthropic dégaine Claude Opus 4.8</h2><p>Le <strong>28 mai 2026</strong>, Anthropic a déployé Claude Opus 4.8, la nouvelle version de son modèle phare. Il est disponible immédiatement sur l'ensemble des produits de l'entreprise — claude.ai, Claude Code et l'API — au <strong>même prix que la génération précédente</strong> : 5 $ par million de tokens en entrée et 25 $ en sortie.</p><figure><img src=\"https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&q=80\" alt=\"Représentation d'un assistant IA conversationnel\" /><figcaption>Opus 4.8 est une itération ciblée d'Opus 4.7, pas une rupture générationnelle</figcaption></figure><h2>Une IA « quatre fois plus honnête »</h2><p>L'axe central de cette version est la fiabilité. Selon Anthropic, le modèle est <strong>quatre fois moins susceptible de laisser passer une faille dans du code</strong> sans la signaler, et meilleur pour repérer ses propres erreurs. L'entreprise insiste sur un jugement plus fin et une réduction des réponses complaisantes.</p><blockquote>Opus 4.8 est plus honnête, plus fiable sur les tâches agentiques et meilleur pour repérer ses propres erreurs. — Anthropic, annonce officielle</blockquote><h2>Dynamic Workflows : des centaines de sous-agents</h2><p>La nouveauté la plus marquante pour les développeurs s'appelle <strong>Dynamic Workflows</strong>, lancée en preview sur Claude Code. Elle permet au modèle de planifier un travail complexe, de <strong>lancer des centaines de sous-agents en parallèle</strong> au sein d'une même session, puis de vérifier ses propres résultats avant de les restituer.</p><div class=\"callout\"><strong>Pour les développeurs :</strong> couplée au mode <em>Fast</em> (2,5× la vitesse normale et trois fois moins cher que sur les modèles précédents) et au curseur <em>Effort Control</em>, cette orchestration parallèle ouvre la voie à des tâches d'ingénierie logicielle bien plus ambitieuses.</p></div><h2>Nouveautés produit</h2><table><thead><tr><th>Fonctionnalité</th><th>Description</th></tr></thead><tbody><tr><td>Dynamic Workflows</td><td>Planification + centaines de sous-agents parallèles (preview)</td></tr><tr><td>Effort Control</td><td>Curseur d'effort à côté du sélecteur de modèle</td></tr><tr><td>Fast Mode</td><td>2,5× plus rapide, 3× moins cher qu'avant</td></tr><tr><td>Messages système en cours de conversation</td><td>Réajuster les consignes en pleine session</td></tr></tbody></table><h2>Et maintenant ? Claude Mythos</h2><p>Au-delà d'Opus 4.8, Anthropic prépare une <strong>nouvelle classe de modèles, Mythos</strong>, d'une intelligence supérieure. Elle est déjà testée par un cercle restreint d'organisations via le programme <em>Project Glasswing</em>, dédié à la cybersécurité : une cinquantaine de partenaires (dont Apple, Google, Microsoft et AWS) auraient déjà identifié <strong>plus de 10 000 vulnérabilités</strong> critiques ou sévères.</p><figure><img src=\"https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=900&q=80\" alt=\"Visualisation de cybersécurité et détection de failles\" /><figcaption>Mythos peut détecter des failles zero-day et générer des exploits — d'où la prudence d'Anthropic avant un déploiement grand public</figcaption></figure><div class=\"callout callout-warning\"><strong>À surveiller :</strong> Anthropic vise une disponibilité élargie des modèles Mythos « dans les semaines à venir », le temps de renforcer les garde-fous. Le lancement s'accompagne par ailleurs d'une levée de fonds Série H de 65 milliards de dollars, valorisant l'entreprise à 965 milliards.</div>",
+  "sources": [
+    {
+      "title": "Anthropic lance Claude Opus 4.8, avant un modèle de grade Mythos très prochainement",
+      "url": "https://www.journaldunet.com/intelligence-artificielle/1550697-anthropic-lance-claude-opus-4-8-avant-un-modele-de-grade-mythos-tres-prochainement/",
+      "publisher": "Journal du Net"
+    },
+    {
+      "title": "Anthropic's Claude Opus 4.8 is four times more honest, Mythos next",
+      "url": "https://thenextweb.com/news/anthropics-claude-opus-4-8-is-its-most-honest-ai-model-yet-and-mythos-is-coming-in-weeks",
+      "publisher": "The Next Web"
+    },
+    {
+      "title": "Claude Opus 4.8 : Anthropic déploie un modèle plus \"honnête\" avant une surprise à venir",
+      "url": "https://www.commentcamarche.net/applis-sites/38037-claude-opus-4-8/",
+      "publisher": "CommentÇaMarche"
+    }
+  ]
+}

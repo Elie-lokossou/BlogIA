@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Clock, User } from "lucide-react";
-import { Article } from "@/lib/types";
+import { Article, CAT_COLORS } from "@/lib/types";
 import { getCategoryMeta, formatDate } from "@/lib/utils";
 import CategoryIcon from "@/components/CategoryIcon";
 
@@ -11,32 +12,43 @@ interface Props {
   articles: Article[];
 }
 
+const PLACEHOLDER = "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&q=80";
+
 export default function HeroSlider({ articles }: Props) {
   const [current, setCurrent] = useState(0);
+
+  // Autoplay toutes les 5 secondes
+  useEffect(() => {
+    if (articles.length <= 1) return;
+    const timer = setInterval(() => setCurrent((c) => (c + 1) % articles.length), 5000);
+    return () => clearInterval(timer);
+  }, [articles.length]);
+
   const article = articles[current];
   if (!article) return null;
 
   const cat = getCategoryMeta(article.category);
-  const img = article.coverImage || "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&q=80";
+  const img = article.coverImage || PLACEHOLDER;
+  const color = CAT_COLORS[article.category] ?? "#7c3aed";
 
   return (
     <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.10)", border: "1px solid #e5e7eb", background: "#fff" }}>
       {/* Image pleine largeur */}
-      <div
-        style={{
-          width: "100%",
-          height: 340,
-          backgroundImage: `url(${img})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
-        }}
-      >
+      <div style={{ position: "relative", width: "100%", height: 340 }}>
+        <Image
+          src={img}
+          alt={article.title}
+          fill
+          sizes="(max-width: 1280px) 100vw, 860px"
+          className="object-cover"
+          priority
+        />
+
         {/* Overlay dégradé bas */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, transparent 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, transparent 100%)", zIndex: 1 }} />
 
         {/* Badge catégorie */}
-        <div style={{ position: "absolute", top: 16, left: 16 }}>
+        <div style={{ position: "absolute", top: 16, left: 16, zIndex: 2 }}>
           <span style={{
             display: "inline-flex", alignItems: "center", gap: 6,
             background: "#7c3aed", color: "#fff",
@@ -59,7 +71,7 @@ export default function HeroSlider({ articles }: Props) {
         </div>
 
         {/* Contenu bas de l'image */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "0 22px 20px" }}>
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "0 22px 20px", zIndex: 2 }}>
           <Link href={`/blog/${article.slug}`} style={{ textDecoration: "none" }}>
             <h2 style={{ fontSize: 22, fontWeight: 900, color: "#fff", lineHeight: 1.3, marginBottom: 8, textShadow: "0 1px 4px rgba(0,0,0,0.3)" }}>
               {article.title}

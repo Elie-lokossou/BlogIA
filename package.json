@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "news": "node scripts/fetch-news.mjs",
+    "publish": "node scripts/publish.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.17.0",

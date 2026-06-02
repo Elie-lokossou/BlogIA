@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { ChevronDown, Rss, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { CATEGORIES } from "@/lib/types";
 import CategoryIcon from "@/components/CategoryIcon";
-import { XIcon, LinkedInIcon } from "@/components/SocialIcons";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -15,124 +14,65 @@ export default function Navbar() {
 
   const isActive = (path: string) => pathname === path;
 
+  const navLinkStyle = (path: string): React.CSSProperties => ({
+    padding: "6px 12px",
+    borderRadius: 8,
+    fontSize: 14,
+    fontWeight: 500,
+    color: isActive(path) ? "#7c3aed" : "#374151",
+    textDecoration: "none",
+    background: isActive(path) ? "#ede9fe" : "transparent",
+    transition: "all .15s",
+  });
+
   return (
-    <header
-      className="sticky top-0 z-50 w-full"
-      style={{ background: "#ffffff", borderBottom: "1px solid #e5e7eb", boxShadow: "0 1px 8px 0 rgba(0,0,0,0.06)" }}
-    >
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-[0_1px_8px_0_rgba(0,0,0,0.06)]">
       {/* Top accent stripe */}
-      <div style={{ height: 3, background: "linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, #f97316 100%)" }} />
+      <div className="h-[3px] bg-gradient-to-r from-violet-600 via-purple-400 to-orange-400" />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", height: 56, gap: 32 }}>
+      <div className="max-w-[1280px] mx-auto px-6">
+        <div className="flex items-center h-14 gap-8">
 
-          {/* ── LEFT NAV ── */}
-          <nav style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <Link
-              href="/"
-              style={{
-                padding: "6px 12px",
-                borderRadius: 8,
-                fontSize: 14,
-                fontWeight: 500,
-                color: isActive("/") ? "#7c3aed" : "#374151",
-                textDecoration: "none",
-                background: isActive("/") ? "#ede9fe" : "transparent",
-                transition: "all .15s",
-              }}
+          {/* ── LEFT NAV (desktop) ── */}
+          <nav className="hidden md:flex items-center gap-1">
+            <Link href="/" style={navLinkStyle("/")}
+              onMouseEnter={(e) => { if (!isActive("/")) { (e.currentTarget as HTMLElement).style.background = "#f3f4f6"; } }}
+              onMouseLeave={(e) => { if (!isActive("/")) { (e.currentTarget as HTMLElement).style.background = "transparent"; } }}
             >
-              Home
+              Accueil
             </Link>
 
             {/* Categories dropdown */}
-            <div style={{ position: "relative" }}>
+            <div className="relative">
               <button
                 onClick={() => setCatOpen(!catOpen)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 4,
-                  padding: "6px 12px",
-                  borderRadius: 8,
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: "#374151",
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "all .15s",
-                }}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all cursor-pointer border-none bg-transparent"
               >
                 Catégories
                 <ChevronDown
                   size={14}
-                  style={{ transform: catOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform .2s" }}
+                  className="transition-transform duration-200"
+                  style={{ transform: catOpen ? "rotate(180deg)" : "rotate(0deg)" }}
                 />
               </button>
 
               {catOpen && (
                 <>
-                  <div
-                    onClick={() => setCatOpen(false)}
-                    style={{ position: "fixed", inset: 0, zIndex: 40 }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "calc(100% + 8px)",
-                      left: 0,
-                      zIndex: 50,
-                      background: "#fff",
-                      border: "1px solid #e5e7eb",
-                      borderRadius: 16,
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-                      minWidth: 240,
-                      overflow: "hidden",
-                      padding: "6px 0",
-                    }}
-                  >
+                  <div onClick={() => setCatOpen(false)} className="fixed inset-0 z-40" />
+                  <div className="absolute top-[calc(100%+8px)] left-0 z-50 bg-white border border-gray-200 rounded-2xl shadow-2xl min-w-[260px] overflow-hidden py-1.5">
                     {CATEGORIES.map((cat) => (
                       <Link
                         key={cat.slug}
                         href={`/categorie/${cat.slug}`}
                         onClick={() => setCatOpen(false)}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 10,
-                          padding: "10px 16px",
-                          textDecoration: "none",
-                          color: "#374151",
-                          fontSize: 14,
-                          transition: "all .15s",
-                        }}
-                        onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLAnchorElement).style.background = "#ede9fe";
-                          (e.currentTarget as HTMLAnchorElement).style.color = "#7c3aed";
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-                          (e.currentTarget as HTMLAnchorElement).style.color = "#374151";
-                        }}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-violet-50 hover:text-violet-700 transition-colors group"
                       >
-                        <span
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            width: 30,
-                            height: 30,
-                            borderRadius: 8,
-                            background: "#f3f0ff",
-                            color: "#7c3aed",
-                            flexShrink: 0,
-                          }}
-                        >
+                        <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-violet-50 text-violet-600 group-hover:bg-violet-100 flex-shrink-0 transition-colors">
                           <CategoryIcon category={cat.slug} size={15} />
                         </span>
                         <div>
-                          <div style={{ fontWeight: 600, fontSize: 13 }}>{cat.label}</div>
-                          <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 1 }}>{cat.description}</div>
+                          <div className="font-semibold text-gray-800 text-[13px] group-hover:text-violet-700">{cat.label}</div>
+                          <div className="text-[11px] text-gray-400 mt-0.5">{cat.description}</div>
                         </div>
                       </Link>
                     ))}
@@ -141,110 +81,30 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link
-              href="/blog"
-              style={{
-                padding: "6px 12px",
-                borderRadius: 8,
-                fontSize: 14,
-                fontWeight: 500,
-                color: isActive("/blog") ? "#7c3aed" : "#374151",
-                textDecoration: "none",
-                background: isActive("/blog") ? "#ede9fe" : "transparent",
-                transition: "all .15s",
-              }}
+            <Link href="/blog" style={navLinkStyle("/blog")}
+              onMouseEnter={(e) => { if (!isActive("/blog")) { (e.currentTarget as HTMLElement).style.background = "#f3f4f6"; } }}
+              onMouseLeave={(e) => { if (!isActive("/blog")) { (e.currentTarget as HTMLElement).style.background = "transparent"; } }}
             >
               Articles
             </Link>
           </nav>
 
           {/* ── CENTER LOGO ── */}
-          <Link
-            href="/"
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-            }}
-          >
-            <div
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 8,
-                background: "linear-gradient(135deg, #7c3aed, #a855f7)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#fff",
-                fontWeight: 900,
-                fontSize: 14,
-                boxShadow: "0 2px 8px rgba(124,58,237,0.3)",
-              }}
-            >
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5 no-underline">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 flex items-center justify-center text-white font-black text-sm shadow-[0_2px_8px_rgba(124,58,237,0.3)]">
               B
             </div>
-            <span style={{ fontWeight: 900, fontSize: 20, color: "#111", letterSpacing: "-0.5px" }}>
-              BlogIA<span style={{ color: "#7c3aed" }}>.</span>
+            <span className="font-black text-xl text-gray-900 tracking-tight">
+              BlogIA<span className="text-violet-600">.</span>
             </span>
           </Link>
 
-          {/* ── RIGHT — SOCIAL + MOBILE ── */}
-          <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
-            {[
-              { label: "X (Twitter)", Icon: XIcon },
-              { label: "LinkedIn", Icon: LinkedInIcon },
-              { label: "RSS", Icon: Rss },
-            ].map(({ label, Icon }) => (
-              <a
-                key={label}
-                href="#"
-                aria-label={label}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 32,
-                  height: 32,
-                  borderRadius: "50%",
-                  background: "#f3f4f6",
-                  color: "#6b7280",
-                  transition: "all .15s",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "#ede9fe";
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#7c3aed";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "#f3f4f6";
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#6b7280";
-                }}
-              >
-                <Icon style={{ width: 15, height: 15 }} />
-              </a>
-            ))}
-
+          {/* ── RIGHT ── */}
+          <div className="ml-auto flex items-center gap-2">
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              style={{
-                display: "none",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                background: "#f3f4f6",
-                border: "none",
-                cursor: "pointer",
-                color: "#374151",
-              }}
-              className="mobile-menu-btn"
+              className="md:hidden flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer border-none text-gray-600"
               aria-label="Menu"
             >
               {mobileOpen ? <X size={16} /> : <Menu size={16} />}
@@ -253,52 +113,35 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile nav */}
+      {/* ── Mobile nav ── */}
       {mobileOpen && (
-        <div
-          style={{
-            background: "#fff",
-            borderTop: "1px solid #e5e7eb",
-            padding: "12px 24px 16px",
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {[{ label: "Home", href: "/" }, { label: "Articles", href: "/blog" }].map((item) => (
+        <div className="md:hidden bg-white border-t border-gray-100 px-6 pb-4 pt-3">
+          <div className="flex flex-col gap-1">
+            {[
+              { label: "Accueil", href: "/" },
+              { label: "Articles", href: "/blog" },
+            ].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: 8,
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: isActive(item.href) ? "#7c3aed" : "#374151",
-                  background: isActive(item.href) ? "#ede9fe" : "transparent",
-                  textDecoration: "none",
-                }}
+                className={`px-3 py-2.5 rounded-lg text-sm font-medium no-underline transition-colors ${
+                  isActive(item.href) ? "bg-violet-50 text-violet-700" : "text-gray-700 hover:bg-gray-50"
+                }`}
               >
                 {item.label}
               </Link>
             ))}
-            <div style={{ height: 1, background: "#e5e7eb", margin: "8px 0" }} />
+            <div className="h-px bg-gray-100 my-2" />
+            <p className="px-3 text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Catégories</p>
             {CATEGORIES.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/categorie/${cat.slug}`}
                 onClick={() => setMobileOpen(false)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "8px 12px",
-                  borderRadius: 8,
-                  fontSize: 14,
-                  color: "#374151",
-                  textDecoration: "none",
-                }}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 no-underline hover:bg-violet-50 hover:text-violet-700 transition-colors"
               >
-                <CategoryIcon category={cat.slug} size={15} style={{ color: "#7c3aed" }} />
+                <span className="text-violet-600"><CategoryIcon category={cat.slug} size={15} /></span>
                 {cat.label}
               </Link>
             ))}

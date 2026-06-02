@@ -20,6 +20,15 @@ BlogIA couvre **exclusivement** la tech, l'IA et le numérique. Les 5 catégorie
 3. Exemples concrets, chiffres sourcés, citations si possible
 4. Conclusion ou call-to-action implicite
 
+## Storytelling (obligatoire pour les articles d'actualité)
+Un article ne résume pas un communiqué : il raconte une histoire avec un angle.
+
+- **Accroche** : ouvrir sur un fait marquant, une tension ou une rupture (« Le 28 mai 2026, X a fait Y »), jamais sur une généralité tiède.
+- **Arc narratif** : accroche → enjeu (pourquoi ça compte) → déroulé (ce qui se passe) → exemple concret / chiffre → chute ou ouverture (et après ?).
+- **Voix vivante** : adresser le lecteur, varier le rythme, alterner phrases courtes et plus longues. Montrer, ne pas seulement énoncer.
+- **Angle** : chaque article répond à « en quoi est-ce important pour mon lecteur ? ». Pas de neutralité fade : assumer une analyse.
+- **Sources** : chaque affirmation factuelle clé doit être vérifiable. Renseigner le tableau `sources[]` (titre, url, éditeur) — la publication est refusée sans sources.
+
 ## SEO
 - `title` : 50-60 caractères, inclure le mot-clé principal
 - `excerpt` : 140-160 caractères, résumé actionnable
@@ -27,7 +36,7 @@ BlogIA couvre **exclusivement** la tech, l'IA et le numérique. Les 5 catégorie
 - `readingTime` : 1 min ≈ 200 mots de contenu HTML
 
 ## Contenu HTML (`content`)
-Utiliser uniquement ces balises :
+Balises autorisées :
 - `<h2>`, `<h3>` pour les titres
 - `<p>` pour les paragraphes
 - `<strong>` pour l'emphase
@@ -35,6 +44,16 @@ Utiliser uniquement ces balises :
 - `<blockquote>` pour les citations
 - `<ul>`, `<ol>`, `<li>` pour les listes
 - `<a href="">` pour les liens
+- `<figure><img src="" alt="" /><figcaption>…</figcaption></figure>` pour les photos illustratives (Unsplash)
+- `<table><thead><tbody>` pour les comparatifs chiffrés
+- `<div class="callout">`, `<div class="callout callout-warning">`, `<div class="callout callout-success">` pour les encadrés
+- `<figure class="diagram"><svg …></svg><figcaption>…</figcaption></figure>` pour les diagrammes explicatifs (SVG inline)
+
+## Images & diagrammes
+- **Couverture** : photo Unsplash ciblée avec des mots-clés précis du sujet (pas une image générique de la catégorie).
+- **Corps** : viser 1 diagramme SVG explicatif (comparatif, flux, chronologie) + 1-2 photos illustratives.
+- Un diagramme doit **réellement illustrer** le propos (étapes d'un processus, comparaison de modèles, timeline), pas décorer.
+- Toujours renseigner un `alt` descriptif et une `<figcaption>` utile.
 
 ## À éviter
 - Titres clickbait sans substance

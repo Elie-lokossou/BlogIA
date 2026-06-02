@@ -1,25 +1,25 @@
 import Link from "next/link";
-import { Rss } from "lucide-react";
 import { CATEGORIES } from "@/lib/types";
 import CategoryIcon from "@/components/CategoryIcon";
-import { XIcon, LinkedInIcon } from "@/components/SocialIcons";
 import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer style={{ marginTop: 64 }}>
+    <footer className="mt-16">
       {/* Newsletter */}
-      <div style={{ background: "#111827", padding: "56px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
-          <div>
-            <h3 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 6 }}>
-              Subscribe to our{" "}
-              <span style={{ color: "#a78bfa", textDecoration: "underline", textDecorationStyle: "wavy", textDecorationColor: "#f97316" }}>
-                newsletter.
+      <div className="bg-gray-900 py-14">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-8">
+          <div className="max-w-sm">
+            <h3 className="text-xl font-extrabold text-white mb-2">
+              Restez à la pointe{" "}
+              <span className="text-violet-400 underline decoration-wavy decoration-orange-400">
+                de la tech.
               </span>
             </h3>
-            <p style={{ fontSize: 13, color: "#9ca3af" }}>
-              Les meilleurs articles tech & IA directement dans votre boîte mail.
+            <p className="text-sm text-gray-400">
+              Les meilleurs articles IA & développement directement dans votre boîte mail. Pas de spam, désabonnement en un clic.
             </p>
           </div>
           <NewsletterForm />
@@ -27,48 +27,34 @@ export default function Footer() {
       </div>
 
       {/* Bottom */}
-      <div style={{ background: "#030712", padding: "24px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
-            <Link href="/" style={{ fontWeight: 900, fontSize: 18, color: "#fff", textDecoration: "none", letterSpacing: "-0.3px" }}>
-              BlogIA<span style={{ color: "#a78bfa" }}>.</span>
+      <div className="bg-[#030712] py-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <Link href="/" className="font-black text-lg text-white no-underline tracking-tight hover:text-violet-400 transition-colors">
+              BlogIA<span className="text-violet-400">.</span>
             </Link>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 20px", alignItems: "center" }}>
-              <Link href="/" style={{ fontSize: 12, color: "#6b7280", textDecoration: "none" }}>Accueil</Link>
-              <Link href="/blog" style={{ fontSize: 12, color: "#6b7280", textDecoration: "none" }}>Articles</Link>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 items-center">
+              <Link href="/" className="text-[12px] text-gray-500 no-underline hover:text-gray-300 transition-colors">Accueil</Link>
+              <Link href="/blog" className="text-[12px] text-gray-500 no-underline hover:text-gray-300 transition-colors">Articles</Link>
               {CATEGORIES.map((cat) => (
-                <Link key={cat.slug} href={`/categorie/${cat.slug}`} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 12, color: "#6b7280", textDecoration: "none" }}>
+                <Link
+                  key={cat.slug}
+                  href={`/categorie/${cat.slug}`}
+                  className="flex items-center gap-1 text-[12px] text-gray-500 no-underline hover:text-gray-300 transition-colors"
+                >
                   <CategoryIcon category={cat.slug} size={11} />
                   {cat.label}
                 </Link>
               ))}
             </div>
-
-            <div style={{ display: "flex", gap: 8 }}>
-              {[
-                { label: "X", Icon: XIcon },
-                { label: "LinkedIn", Icon: LinkedInIcon },
-                { label: "RSS", Icon: Rss },
-              ].map(({ label, Icon }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: "50%", background: "rgba(255,255,255,0.06)", color: "#6b7280", textDecoration: "none" }}
-                >
-                  <Icon size={14} />
-                </a>
-              ))}
-            </div>
           </div>
 
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", marginTop: 20, paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
-            <p style={{ fontSize: 11, color: "#4b5563" }}>© {new Date().getFullYear()} BlogIA. Tous droits réservés.</p>
-            <div style={{ display: "flex", gap: 16 }}>
-              <a href="#" style={{ fontSize: 11, color: "#4b5563", textDecoration: "none" }}>Privacy Policy</a>
-              <a href="#" style={{ fontSize: 11, color: "#4b5563", textDecoration: "none" }}>Terms & Conditions</a>
-            </div>
+          <div className="border-t border-white/5 mt-5 pt-5 flex flex-wrap justify-between items-center gap-3">
+            <p className="text-[11px] text-gray-600">© {year} BlogIA. Tous droits réservés.</p>
+            <p className="text-[11px] text-gray-600">
+              Fait avec passion pour la tech & l&apos;IA 🤍
+            </p>
           </div>
         </div>
       </div>
