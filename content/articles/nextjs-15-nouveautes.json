@@ -19,5 +19,22 @@
   "featured": false,
   "draft": false,
   "excerpt": "Next.js 15 apporte des améliorations majeures : Turbopack stable, React 19 natif, Server Actions améliorées et une DX encore plus fluide.",
+  "sources": [
+    {
+      "title": "Next.js 15",
+      "url": "https://nextjs.org/blog/next-15",
+      "publisher": "Vercel / Next.js"
+    },
+    {
+      "title": "How to upgrade to version 15",
+      "url": "https://nextjs.org/docs/app/guides/upgrading/version-15",
+      "publisher": "Next.js Docs"
+    },
+    {
+      "title": "Next.js 15.0.0 release",
+      "url": "https://github.com/vercel/next.js/releases/tag/v15.0.0",
+      "publisher": "GitHub"
+    }
+  ],
   "content": "<h2>Turbopack enfin stable</h2><p>Après deux ans de développement, Turbopack — le remplaçant de Webpack — est officiellement stable dans Next.js 15. Les gains de performance au démarrage et au hot-reload sont spectaculaires : <strong>jusqu'à 10x plus rapide</strong> sur les gros projets.</p><figure><img src=\"https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&q=80\" alt=\"Développeur travaillant sur du code TypeScript\" /><figcaption>Le bundler Turbopack transforme l'expérience de développement au quotidien</figcaption></figure><div class=\"callout\"><strong>Pourquoi c'est important :</strong> sur un projet de taille moyenne (500+ modules), le passage de Webpack à Turbopack réduit le démarrage du serveur de dev de 8 secondes à moins d'1 seconde.</div><h2>React 19 de série</h2><p>Next.js 15 embarque React 19 par défaut. Cela signifie l'accès natif aux <code>use()</code>, aux Server Components améliorés et aux Actions optimistes sans librairie tierce.</p><pre><code>// Exemple de Server Action avec React 19\nasync function createPost(formData: FormData) {\n  'use server';\n  const title = formData.get('title') as string;\n  await db.post.create({ data: { title } });\n  revalidatePath('/blog');\n}</code></pre><h2>Partial Prerendering en production</h2><p>Le Partial Prerendering (PPR), expérimental depuis la v14, passe en stable. Il permet de combiner SSG et SSR au niveau des composants — une révolution pour les pages hybrides.</p><figure><img src=\"https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=900&q=80\" alt=\"Architecture de rendu hybride\" /><figcaption>Le PPR permet un rendu hybride : le squelette de la page est statique, les parties dynamiques s'hydratent en parallèle</figcaption></figure><h2>Comparatif des stratégies de rendu</h2><table><thead><tr><th>Stratégie</th><th>Cas d'usage</th><th>Performance</th></tr></thead><tbody><tr><td>SSG (Static)</td><td>Pages blog, docs</td><td>Excellent</td></tr><tr><td>SSR (Server)</td><td>Données temps réel</td><td>Bon</td></tr><tr><td>PPR (Hybride)</td><td>Dashboards, e-commerce</td><td>Excellent</td></tr><tr><td>ISR (Incrémental)</td><td>Catalogues larges</td><td>Très bon</td></tr></tbody></table><h2>Migration depuis Next.js 14</h2><p>La migration est globalement non-breaking. Le seul changement notable concerne les cookies et headers qui sont désormais asynchrones dans les Server Components. Un codemod automatique est fourni.</p><div class=\"callout callout-success\"><strong>Migration en 2 commandes :</strong> <code>npx @next/codemod@latest upgrade</code> puis <code>npx @next/codemod@latest next-async-request-api .</code> — la majorité des projets migrent sans toucher une ligne de code manuellement.</div>"
 }

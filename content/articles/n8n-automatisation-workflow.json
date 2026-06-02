@@ -20,5 +20,22 @@
   "featured": false,
   "draft": false,
   "excerpt": "n8n s'est imposé comme l'outil d'automatisation de référence pour les développeurs et les équipes tech. Voici pourquoi il devrait être dans votre stack.",
+  "sources": [
+    {
+      "title": "Docker installation",
+      "url": "https://docs.n8n.io/hosting/installation/docker/",
+      "publisher": "n8n Docs"
+    },
+    {
+      "title": "Self-hosting n8n",
+      "url": "https://docs.n8n.io/hosting/",
+      "publisher": "n8n Docs"
+    },
+    {
+      "title": "n8n hosting repository (Docker Compose)",
+      "url": "https://github.com/n8n-io/n8n-hosting",
+      "publisher": "GitHub / n8n"
+    }
+  ],
   "content": "<h2>Pourquoi n8n domine le no-code en 2026</h2><p>Zapier vieillissait, Make devenait complexe, Pipedream plafonnait. n8n a comblé le vide avec une approche hybride : <strong>low-code pour les développeurs, no-code pour les autres</strong>. Et le tout en self-hosted ou cloud, au choix.</p><figure><img src=\"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80\" alt=\"Dashboard de workflow automation\" /><figcaption>L'interface visuelle de n8n permet de construire des pipelines complexes sans écrire une ligne de code backend</figcaption></figure><h2>n8n vs la concurrence — comparatif 2026</h2><table><thead><tr><th>Outil</th><th>Self-hosted</th><th>Noeuds IA</th><th>Prix/mois</th><th>Verdict</th></tr></thead><tbody><tr><td>n8n</td><td>Oui</td><td>80+</td><td>Gratuit / 24€</td><td>Meilleur rapport qualité/prix</td></tr><tr><td>Zapier</td><td>Non</td><td>20+</td><td>49€+</td><td>Simple mais limité</td></tr><tr><td>Make</td><td>Non</td><td>30+</td><td>9€+</td><td>Bonne UX, pas de code</td></tr><tr><td>Pipedream</td><td>Partiel</td><td>40+</td><td>Gratuit / 19€</td><td>Idéal pour les devs</td></tr></tbody></table><h2>Les use cases qui ont tout changé</h2><p>En 2026, les workflows IA sont devenus le killer feature de n8n. Connecter un webhook entrant, le passer dans un LLM, enrichir les données depuis une base Airtable et envoyer un email personnalisé — tout ça en 15 minutes sans écrire une ligne de code serveur.</p><pre><code>// Exemple de workflow n8n en JSON\n{\n  \"nodes\": [\n    { \"type\": \"n8n-nodes-base.webhook\", \"name\": \"Trigger\" },\n    { \"type\": \"@n8n/n8n-nodes-langchain.openAi\", \"name\": \"Analyse IA\" },\n    { \"type\": \"n8n-nodes-base.gmail\", \"name\": \"Envoi email\" }\n  ]\n}</code></pre><div class=\"callout\"><strong>Cas d'usage concret :</strong> une agence marketing utilise n8n pour traiter automatiquement les leads entrants — enrichissement LinkedIn, scoring IA, assignation CRM et séquence d'emails personnalisée — le tout sans intervention humaine et en moins de 30 secondes par lead.</div><h2>L'écosystème en 2026</h2><p>Plus de 400 intégrations natives, une communauté de 150 000 membres et un marketplace de templates qui couvre 90% des besoins courants.</p><figure><img src=\"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80\" alt=\"Données et automatisation\" /><figcaption>n8n Cloud propose désormais des agents IA préconfigurés qui s'auto-améliorent via du reinforcement learning</figcaption></figure><h2>Comment démarrer en 5 minutes</h2><p>La meilleure entrée reste l'auto-hébergement via Docker. En 5 minutes, vous avez une instance complète :</p><pre><code>docker run -it --rm \\\n  --name n8n \\\n  -p 5678:5678 \\\n  -v ~/.n8n:/home/node/.n8n \\\n  docker.n8n.io/n8nio/n8n</code></pre><div class=\"callout callout-success\"><strong>Conseil de départ :</strong> commencez par automatiser quelque chose de simple — vos notifications Slack, vos leads CRM — et laissez la complexité venir naturellement. La courbe d'apprentissage est la plus douce du marché.</div>"
 }

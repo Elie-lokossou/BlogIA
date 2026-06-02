@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BlogIA
 
-## Getting Started
+Blog tech et IA en français — **John Elie LOKOSSOU**. Stack Next.js 16 (App Router), React 19, Tailwind CSS v4. Le contenu éditorial vit dans `content/articles/` (un fichier JSON par article).
 
-First, run the development server:
+## Prérequis
+
+- Node.js 20+
+- npm
+
+## Installation
+
+```bash
+npm install
+cp .env.example .env.local
+# Éditer .env.local (voir section Variables ci-dessous)
+```
+
+## Développement
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Site local : [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts utiles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Commande | Rôle |
+|----------|------|
+| `npm run dev` | Serveur de développement |
+| `npm run build` | Build de production |
+| `npm run lint` | ESLint |
+| `npm run news` | Pipeline RSS → brouillons JSON (`scripts/fetch-news.mjs`) |
+| `npm run publish <slug>` | Demande de publication via Telegram (✅/❌) ; refuse si `sources[]` est vide |
 
-## Learn More
+## Publication d’un article
 
-To learn more about Next.js, take a look at the following resources:
+1. Créer ou compléter un JSON dans `content/articles/` (`draft: true` tant que non validé).
+2. Renseigner au moins deux entrées dans `sources[]` (titres + URLs réelles).
+3. Lancer `npm run publish mon-slug` — le bot Telegram (@BlogIA20_bot) envoie une confirmation ; valider avec ✅ pour passer `draft: false`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Variables d’environnement
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Voir `.env.example` :
 
-## Deploy on Vercel
+- `BLOG_URL` — URL canonique (défaut `https://blogia.fr`)
+- `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` — publication interactive
+- `GEMINI_API_KEY` — optionnel, scripts d’aide à la rédaction
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — pages App Router (accueil, blog, catégories, tags, SEO)
+- `components/` — UI magazine (thème clair `#f5f5f7`)
+- `lib/` — articles, types, identité site (`lib/site.ts`)
+- `scripts/` — `fetch-news.mjs`, `publish.mjs`
+
+## Agents Cursor (Foundary)
+
+Orchestration éditoriale via les agents dans `.cursor/agents/` (`foundary list`). Workflow type : `/nouvel-article` → `npm run news` → `/content_audit-article` → `npm run publish <slug>`.
+
+## Auteur
+
+**John Elie LOKOSSOU** — créateur de BlogIA · développement, IA et cybersécurité.
