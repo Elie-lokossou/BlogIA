@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import DebugImageProbe from "@/components/DebugImageProbe";
+import { AUTHOR, SITE } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,16 +18,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "BlogIA — Tech, IA & Innovation",
-    template: "%s | BlogIA",
+    default: `${SITE.name} — ${AUTHOR.name}`,
+    template: `%s | ${SITE.name}`,
   },
-  description:
-    "Le blog qui décrypte l'intelligence artificielle, le développement, la cybersécurité et les innovations technologiques.",
-  keywords: ["intelligence artificielle", "IA", "tech", "développement", "cybersécurité"],
+  description: SITE.description,
+  keywords: ["intelligence artificielle", "IA", "tech", "développement", "cybersécurité", AUTHOR.name],
+  authors: [{ name: AUTHOR.name }],
+  creator: AUTHOR.name,
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "BlogIA",
+    siteName: SITE.name,
   },
 };
 
@@ -34,14 +37,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const showImageProbe = process.env.DEBUG_IMAGE_PROBE === "1";
+
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
+      <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="BlogIA — RSS Feed"
+          href="/rss.xml"
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ background: "#f5f5f7", color: "#111111" }}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        suppressHydrationWarning
       >
+        {showImageProbe && <DebugImageProbe />}
         <Navbar />
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

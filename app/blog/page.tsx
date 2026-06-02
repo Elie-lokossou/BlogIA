@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getAllArticles } from "@/lib/articles";
 import ArticleGrid from "@/components/ArticleGrid";
@@ -18,7 +19,9 @@ export default function BlogPage() {
           {articles.length} article{articles.length > 1 ? "s" : ""} publiés
         </p>
       </div>
-      <ArticleGrid articles={articles} />
+      <Suspense fallback={<p className="text-sm text-gray-400 py-8">Chargement des filtres…</p>}>
+        <ArticleGrid articles={articles} />
+      </Suspense>
     </div>
   );
 }

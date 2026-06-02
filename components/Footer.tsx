@@ -1,73 +1,93 @@
 import Link from "next/link";
-import { Rss } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 import { CATEGORIES } from "@/lib/types";
+import { AUTHOR, SITE } from "@/lib/site";
 import CategoryIcon from "@/components/CategoryIcon";
-import { XIcon, LinkedInIcon } from "@/components/SocialIcons";
 import NewsletterForm from "@/components/NewsletterForm";
+import AuthorAvatar from "@/components/AuthorAvatar";
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer style={{ marginTop: 64 }}>
-      {/* Newsletter */}
-      <div style={{ background: "#111827", padding: "56px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
-          <div>
-            <h3 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 6 }}>
-              Subscribe to our{" "}
-              <span style={{ color: "#a78bfa", textDecoration: "underline", textDecorationStyle: "wavy", textDecorationColor: "#f97316" }}>
-                newsletter.
+    <footer className="mt-16 border-t border-gray-100">
+      <div className="bg-gray-50 py-14 border-b border-gray-100">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-8">
+          <div className="max-w-md">
+            <div className="flex items-center gap-3 mb-4">
+              <AuthorAvatar size="md" />
+              <div>
+                <p className="text-gray-900 font-bold text-lg leading-tight">{AUTHOR.name}</p>
+                <p className="text-gray-600 text-sm">{AUTHOR.bio}</p>
+              </div>
+            </div>
+            <h3 className="text-xl font-extrabold text-gray-900 mb-2">
+              Restez à la pointe{" "}
+              <span className="text-violet-600 underline decoration-wavy decoration-orange-400/90">
+                de la tech.
               </span>
             </h3>
-            <p style={{ fontSize: 13, color: "#9ca3af" }}>
-              Les meilleurs articles tech & IA directement dans votre boîte mail.
+            <p className="text-sm text-gray-500 leading-relaxed">
+              Analyses IA, dev et cybersécurité — par {AUTHOR.name}. Newsletter bientôt disponible.
             </p>
           </div>
           <NewsletterForm />
         </div>
       </div>
 
-      {/* Bottom */}
-      <div style={{ background: "#030712", padding: "24px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
-            <Link href="/" style={{ fontWeight: 900, fontSize: 18, color: "#fff", textDecoration: "none", letterSpacing: "-0.3px" }}>
-              BlogIA<span style={{ color: "#a78bfa" }}>.</span>
+      <div className="bg-white py-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <Link
+              href="/"
+              className="font-black text-lg text-gray-900 no-underline tracking-tight hover:text-violet-600 transition-colors"
+            >
+              {SITE.name}
+              <span className="text-violet-600">.</span>
             </Link>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 20px", alignItems: "center" }}>
-              <Link href="/" style={{ fontSize: 12, color: "#6b7280", textDecoration: "none" }}>Accueil</Link>
-              <Link href="/blog" style={{ fontSize: 12, color: "#6b7280", textDecoration: "none" }}>Articles</Link>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 items-center">
+              <Link href="/" className="text-[12px] text-gray-500 no-underline hover:text-violet-600 transition-colors">
+                Accueil
+              </Link>
+              <Link href="/blog" className="text-[12px] text-gray-500 no-underline hover:text-violet-600 transition-colors">
+                Articles
+              </Link>
+              <Link href="/a-propos" className="text-[12px] text-gray-500 no-underline hover:text-violet-600 transition-colors">
+                À propos
+              </Link>
               {CATEGORIES.map((cat) => (
-                <Link key={cat.slug} href={`/categorie/${cat.slug}`} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 12, color: "#6b7280", textDecoration: "none" }}>
+                <Link
+                  key={cat.slug}
+                  href={`/categorie/${cat.slug}`}
+                  className="flex items-center gap-1 text-[12px] text-gray-500 no-underline hover:text-violet-600 transition-colors"
+                >
                   <CategoryIcon category={cat.slug} size={11} />
                   {cat.label}
                 </Link>
               ))}
             </div>
-
-            <div style={{ display: "flex", gap: 8 }}>
-              {[
-                { label: "X", Icon: XIcon },
-                { label: "LinkedIn", Icon: LinkedInIcon },
-                { label: "RSS", Icon: Rss },
-              ].map(({ label, Icon }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: "50%", background: "rgba(255,255,255,0.06)", color: "#6b7280", textDecoration: "none" }}
-                >
-                  <Icon size={14} />
-                </a>
-              ))}
-            </div>
           </div>
 
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", marginTop: 20, paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
-            <p style={{ fontSize: 11, color: "#4b5563" }}>© {new Date().getFullYear()} BlogIA. Tous droits réservés.</p>
-            <div style={{ display: "flex", gap: 16 }}>
-              <a href="#" style={{ fontSize: 11, color: "#4b5563", textDecoration: "none" }}>Privacy Policy</a>
-              <a href="#" style={{ fontSize: 11, color: "#4b5563", textDecoration: "none" }}>Terms & Conditions</a>
+          <div className="border-t border-gray-100 mt-5 pt-5 flex flex-wrap justify-between items-center gap-3">
+            <p className="text-[11px] text-gray-500">
+              © {year} {AUTHOR.name} · {SITE.name}
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={AUTHOR.github}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-[11px] text-gray-500 no-underline hover:text-violet-600 transition-colors inline-flex items-center gap-1"
+              >
+                <ExternalLink className="w-3 h-3" aria-hidden />
+                GitHub
+              </a>
+              <p className="text-[11px] text-gray-500 flex items-center gap-1">
+                Fait avec
+                <Heart className="w-3 h-3 text-orange-400 fill-orange-400/30" aria-hidden />
+                pour la tech & l&apos;IA
+              </p>
             </div>
           </div>
         </div>

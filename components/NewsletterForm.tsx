@@ -2,39 +2,33 @@
 
 export default function NewsletterForm() {
   return (
-    <form
-      onSubmit={(e) => e.preventDefault()}
-      style={{ display: "flex", gap: 8, width: "100%", maxWidth: 420 }}
+    <div
+      className="flex flex-col gap-2.5 w-full max-w-[420px]"
+      aria-label="Newsletter — bientôt disponible"
     >
-      <input
-        type="email"
-        placeholder="Votre email…"
-        style={{
-          flex: 1,
-          padding: "10px 16px",
-          borderRadius: 12,
-          background: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.12)",
-          color: "#fff",
-          fontSize: 13,
-          outline: "none",
-        }}
-      />
-      <button
-        type="submit"
-        style={{
-          padding: "10px 20px",
-          borderRadius: 12,
-          background: "#f97316",
-          border: "none",
-          color: "#fff",
-          fontWeight: 700,
-          fontSize: 13,
-          cursor: "pointer",
-        }}
-      >
-        S'inscrire
-      </button>
-    </form>
+      <p className="m-0 text-[13px] font-semibold text-gray-800">
+        Newsletter — bientôt disponible
+      </p>
+      <p className="m-0 text-xs text-gray-500 leading-relaxed">
+        L&apos;inscription par email arrive prochainement. En attendant, suivez les nouveaux articles sur le blog.
+      </p>
+      <div className="flex gap-2 w-full opacity-55">
+        <input
+          type="email"
+          placeholder="Votre email…"
+          disabled
+          aria-disabled="true"
+          className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-400 text-[13px] outline-none cursor-not-allowed"
+        />
+        <button
+          type="button"
+          disabled
+          aria-disabled="true"
+          className="px-5 py-2.5 rounded-xl bg-orange-400 border-none text-white/90 font-bold text-[13px] cursor-not-allowed"
+        >
+          Bientôt
+        </button>
+      </div>
+    </div>
   );
 }

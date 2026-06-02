@@ -1,0 +1,40 @@
+---
+description: N'utiliser que les agents Foundary du projet — jamais d'autres subagents ou plugins
+alwaysApply: true
+---
+
+# Agents Foundary uniquement
+
+Ce projet BlogIA est piloté **exclusivement** par les agents Foundary installés dans `.cursor/agents/`.
+
+## Obligatoire
+
+- Pour déléguer du travail spécialisé, invoquer un agent Foundary via **slash command** Cursor : `/nom-agent` (ex. `/content_audit-article`, `/core_devops`, `/core_git-push`).
+- Liste complète : lancer `foundary list` ou lire les fichiers dans `.cursor/agents/`.
+- Orchestration multi-rôles : `/core_team` (dispatche vers les autres agents Foundary).
+
+## Interdit
+
+- Ne pas lancer de subagents Cursor hors Foundary (`Task` avec `explore`, `code-reviewer`, `ce-*`, `generalPurpose`, plugins MCP comme agents, etc.) sauf demande **explicite** de l'utilisateur pour un outil précis (ex. navigateur, GitHub CLI).
+- Ne pas improviser un « rôle » custom (auditeur, PM, devops) en prompt libre si un agent Foundary couvre ce besoin — utiliser l'agent correspondant.
+- Ne pas dupliquer la logique d'un agent Foundary dans une longue instruction manuelle.
+
+## Workflows BlogIA → agents Foundary
+
+| Besoin | Agent Foundary |
+|--------|----------------|
+| Nouvel article (stratégie / angle) | `/content_blog-strategy` |
+| Audit article avant publication | `/content_audit-article` |
+| UX / design interface | `/core_audit-ux` ou `/core_designer` |
+| Implémentation feature | `/core_fullstack` |
+| CI/CD, GitHub Actions | `/core_devops` |
+| Push Git sécurisé | `/core_git-push` |
+| Debug bug | `/core_debug-module` |
+| Doc README / AGENTS | `/core_update-docs` |
+| Tâche multi-étapes | `/core_team` |
+
+Scripts Node (`npm run news`, `npm run publish`) restent autorisés — ce ne sont pas des agents.
+
+## Design systems Foundary
+
+Kits dans `.foundary/design-systems/` — `foundary add <name>` uniquement sur demande explicite (l'UI magazine actuelle ne doit pas être écrasée par défaut).

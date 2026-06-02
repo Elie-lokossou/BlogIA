@@ -1,11 +1,14 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { FileText } from "lucide-react";
 import { getFeaturedArticles, getAllArticles } from "@/lib/articles";
-import { CATEGORIES } from "@/lib/types";
+import { CATEGORIES, CAT_COLORS, CAT_BG } from "@/lib/types";
 import HeroSlider from "@/components/HeroSlider";
 import ArticleGrid from "@/components/ArticleGrid";
 import Sidebar from "@/components/Sidebar";
 import CategoryIcon from "@/components/CategoryIcon";
+import AuthorIntro from "@/components/AuthorIntro";
+import { AUTHOR } from "@/lib/site";
 
 export default function HomePage() {
   const featured = getFeaturedArticles(5);
@@ -13,88 +16,78 @@ export default function HomePage() {
   const mustRead = [...all.filter((a) => a.featured), ...all.filter((a) => !a.featured)].slice(0, 5);
   const latest = all.slice(0, 4);
 
-  const CAT_COLORS: Record<string, string> = {
-    "intelligence-artificielle": "#7c3aed",
-    "developpement": "#2563eb",
-    "cybersecurite": "#dc2626",
-    "tech-innovation": "#ea580c",
-    "outils-productivite": "#16a34a",
-  };
-
-  const CAT_BG: Record<string, string> = {
-    "intelligence-artificielle": "#f3f0ff",
-    "developpement": "#eff6ff",
-    "cybersecurite": "#fef2f2",
-    "tech-innovation": "#fff7ed",
-    "outils-productivite": "#f0fdf4",
-  };
-
   return (
-    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
 
-      {/* ── HERO PLEINE LARGEUR ── */}
-      <div style={{ paddingTop: 24, paddingBottom: 32 }}>
-        <p style={{ fontSize: 34, fontWeight: 900, color: "#7c3aed", fontStyle: "italic", marginBottom: 14, letterSpacing: "-1px" }}>
-          Tech.
-        </p>
+      <AuthorIntro />
+
+      {/* ── HERO ── */}
+      <div className="pt-2 pb-8">
+        <div className="mb-5">
+          <p className="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">
+            Sélection de {AUTHOR.name}
+          </p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+            Décryptez l&apos;IA,{" "}
+            <span className="text-violet-600">
+              le développement
+            </span>
+            <br className="hidden sm:block" /> et les innovations tech.
+          </h1>
+        </div>
 
         {featured.length > 0 ? (
           <HeroSlider articles={featured} />
         ) : (
-          <div style={{ background: "#fff", borderRadius: 20, border: "1px solid #f3f4f6", padding: 40, textAlign: "center", color: "#9ca3af" }}>
-            <FileText size={40} style={{ margin: "0 auto 12px", opacity: 0.4 }} />
-            <p style={{ fontSize: 14 }}>Ajoutez vos premiers articles dans <code style={{ color: "#7c3aed" }}>content/articles/</code></p>
+          <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center text-gray-400">
+            <FileText size={40} className="mx-auto mb-3 opacity-40" />
+            <p className="text-sm">Ajoutez vos premiers articles dans <code className="text-violet-600">content/articles/</code></p>
           </div>
         )}
       </div>
 
       {/* ── CATÉGORIES RAPIDES ── */}
-      <div style={{ marginBottom: 36 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 10 }}>
+      <div className="mb-9">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.slug}
               href={`/categorie/${cat.slug}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                background: "#fff",
-                border: "1px solid #f3f4f6",
-                borderRadius: 12,
-                padding: "10px 12px",
-                textDecoration: "none",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-              }}
+              className="group flex items-center gap-2.5 bg-white border border-gray-100 rounded-xl p-2.5 no-underline shadow-sm hover:shadow-md hover:border-violet-200 hover:-translate-y-0.5 transition-all duration-200"
             >
-              <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: 8, background: CAT_BG[cat.slug], color: CAT_COLORS[cat.slug], flexShrink: 0 }}>
+              <span
+                className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0 transition-colors"
+                style={{ background: CAT_BG[cat.slug], color: CAT_COLORS[cat.slug] }}
+              >
                 <CategoryIcon category={cat.slug} size={16} />
               </span>
-              <div>
-                <p style={{ fontSize: 11, fontWeight: 700, color: "#111", lineHeight: 1.2 }}>{cat.label}</p>
-                <p style={{ fontSize: 10, color: "#9ca3af", marginTop: 1 }}>{cat.description.split(",")[0]}</p>
+              <div className="min-w-0">
+                <p className="text-[11px] font-bold text-gray-800 leading-tight group-hover:text-violet-700 transition-colors truncate">{cat.label}</p>
+                <p className="text-[10px] text-gray-400 mt-0.5 truncate">{cat.description.split(",")[0]}</p>
               </div>
             </Link>
           ))}
         </div>
       </div>
 
-      {/* ── GRILLE + SIDEBAR CÔTE À CÔTE ── */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 24, alignItems: "start", marginBottom: 64 }}>
+      {/* ── GRILLE + SIDEBAR ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start mb-16">
 
-        {/* Colonne gauche — grille articles */}
+        {/* Colonne gauche */}
         <div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: "#111" }}>Derniers articles</h2>
-            <Link href="/blog" style={{ fontSize: 12, fontWeight: 600, color: "#7c3aed", textDecoration: "none" }}>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-gray-900">Derniers articles</h2>
+            <Link href="/blog" className="text-sm font-semibold text-violet-600 hover:text-violet-800 transition-colors no-underline">
               Voir tout →
             </Link>
           </div>
-          <ArticleGrid articles={all} />
+          <Suspense fallback={<p className="text-sm text-gray-400 py-8">Chargement des filtres…</p>}>
+            <ArticleGrid articles={all} />
+          </Suspense>
         </div>
 
-        {/* Colonne droite — sidebar */}
-        <div style={{ position: "sticky", top: 74 }}>
+        {/* Sidebar — sticky uniquement sur lg */}
+        <div className="lg:sticky lg:top-[74px]">
           <Sidebar mustRead={mustRead} latest={latest} />
         </div>
 

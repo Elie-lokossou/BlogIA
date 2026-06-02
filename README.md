@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BlogIA
 
-## Getting Started
+Blog tech et IA en français — **John Elie LOKOSSOU**. Stack Next.js 16 (App Router), React 19, Tailwind CSS v4. Le contenu éditorial vit dans `content/articles/` (un fichier JSON par article).
 
-First, run the development server:
+**Dépôt GitHub :** [github.com/Elie-lokossou/BlogIA](https://github.com/Elie-lokossou/BlogIA) · **Profil :** [github.com/Elie-lokossou](https://github.com/Elie-lokossou)
+
+## Prérequis
+
+- Node.js 20+
+- npm
+
+## Installation
+
+```bash
+npm install
+cp .env.example .env.local
+# Éditer .env.local (voir section Variables ci-dessous)
+```
+
+## Développement
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Site local : [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts utiles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Commande | Rôle |
+|----------|------|
+| `npm run dev` | Serveur de développement |
+| `npm run build` | Build de production |
+| `npm run lint` | ESLint |
+| `npm run news` | Pipeline RSS → brouillons JSON (`scripts/fetch-news.mjs`) |
+| `npm run publish <slug>` | Demande de publication via Telegram (✅/❌) ; refuse si `sources[]` est vide |
 
-## Learn More
+## Publication d’un article
 
-To learn more about Next.js, take a look at the following resources:
+1. Créer ou compléter un JSON dans `content/articles/` (`draft: true` tant que non validé).
+2. Renseigner au moins deux entrées dans `sources[]` (titres + URLs réelles).
+3. Lancer `npm run publish mon-slug` — le bot Telegram (@BlogIA20_bot) envoie une confirmation ; valider avec ✅ pour passer `draft: false`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Variables d’environnement
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Voir `.env.example` :
 
-## Deploy on Vercel
+- `BLOG_URL` — URL canonique (défaut `https://blogia.fr`)
+- `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` — publication interactive
+- `GEMINI_API_KEY` — optionnel, scripts d’aide à la rédaction
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — pages App Router (accueil, blog, catégories, tags, SEO)
+- `components/` — UI magazine (thème clair `#f5f5f7`)
+- `lib/` — articles, types, identité site (`lib/site.ts`)
+- `scripts/` — `fetch-news.mjs`, `publish.mjs`
+
+## Agents Cursor (Foundary)
+
+Orchestration éditoriale via les agents dans `.cursor/agents/` (`foundary list`). Workflow type : `/nouvel-article` → `npm run news` → `/content_audit-article` → `npm run publish <slug>`.
+
+## Auteur
+
+**John Elie LOKOSSOU** — créateur de BlogIA · développement, IA et cybersécurité · [GitHub](https://github.com/Elie-lokossou)
+
+## Migration dépôt (BOVO-Digital → compte personnel)
+
+L’ancien dépôt organisation `BOVO-Digital/BlogIA` est remplacé par le compte personnel **Elie-lokossou**. Deux options :
+
+### Option A — Transférer le dépôt existant
+
+1. Sur [github.com/BOVO-Digital/BlogIA](https://github.com/BOVO-Digital/BlogIA) : **Settings → General → Danger Zone → Transfer ownership**
+2. Choisir le compte **Elie-lokossou** et confirmer le transfert (le repo garde l’historique).
+
+### Option B — Nouveau dépôt vide
+
+1. Créer un repo vide **BlogIA** sur [github.com/Elie-lokossou](https://github.com/Elie-lokossou) (sans README si vous poussez un dépôt local déjà peuplé).
+2. Mettre à jour le remote local :
+
+```bash
+git remote set-url origin https://github.com/Elie-lokossou/BlogIA.git
+git remote -v
+```
+
+3. Pousser la branche de travail (adapter le nom de branche si besoin) :
+
+```bash
+git push -u origin agents/project-analysis-summary
+```
+
+4. Ouvrir une PR sur `main` si nécessaire, puis merger.
+
+### Après la migration
+
+- **Vercel** : Project Settings → Git → reconnecter le dépôt `Elie-lokossou/BlogIA`, ou importer le projet depuis le nouveau remote.
+- **Variables** : vérifier `BLOG_URL` (URL canonique du site en production, ex. `https://blogia.fr`).
+- **Telegram** : `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID` inchangés dans `.env.local` / dashboard Vercel.
+
+> Ne lancez `git remote set-url` qu’après avoir créé ou transféré le dépôt cible, sinon `git push` échouera.

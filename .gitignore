@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -42,3 +43,13 @@ next-env.d.ts
 
 # Agent system prompts (local only — never commit)
 AGENT_SYSTEM_PROMPT.md
+
+# news cache (généré par scripts/fetch-news.mjs)
+/scripts/news-cache/
+
+# Foundary design systems (recréés par `foundary install`, ~14 Mo)
+.foundary/
+
+# Cursor local / debug (ne pas versionner)
+.cursor/debug-*.log
+.cursor/hooks/

@@ -2,11 +2,22 @@
   "name": "blog-ia",
   "version": "0.1.0",
   "private": true,
+  "author": "John Elie LOKOSSOU <contact@blogia.fr> (https://github.com/Elie-lokossou)",
+  "homepage": "https://github.com/Elie-lokossou/BlogIA#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elie-lokossou/BlogIA.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Elie-lokossou/BlogIA/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "news": "node scripts/fetch-news.mjs",
+    "publish": "node scripts/publish.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.17.0",
