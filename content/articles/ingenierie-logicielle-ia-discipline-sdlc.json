@@ -1,0 +1,45 @@
+{
+  "id": "ingenierie-logicielle-ia-discipline-sdlc",
+  "title": "IA et ingénierie logicielle : discipline avant vitesse",
+  "slug": "ingenierie-logicielle-ia-discipline-sdlc",
+  "category": "developpement",
+  "tags": [
+    "ia-generative",
+    "sdlc",
+    "developer-experience",
+    "finops-ia"
+  ],
+  "author": {
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
+  },
+  "publishedAt": "2026-06-03T08:04:08.801Z",
+  "coverImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80",
+  "readingTime": 5,
+  "featured": false,
+  "draft": true,
+  "excerpt": "L’IA accélère le code, mais expose les équipes sans specs, tests ni FinOps. Le vrai chantier est organisationnel, pas magique.",
+  "content": "<h2>Le code va plus vite. Le risque aussi.</h2><p>Le 3 juin 2026, <strong>Le Monde Informatique</strong> résume très bien le paradoxe qui traverse les équipes de développement : avec l’IA, tout semble changer, mais le cycle de vie logiciel ne disparaît pas. Un agent peut produire en quelques heures ce qu’un développeur livrait autrefois en plusieurs jours. Un product owner peut prototyper. Un dirigeant peut « vibe-coder » une page en un week-end. La tentation est donc simple : aller plus vite, partout.</p><p>Mais c’est précisément là que le piège commence. Plus la machine exécute vite, plus une mauvaise spécification, une revue trop légère ou un test oublié se transforment vite en dette industrielle. L’IA ne supprime pas le SDLC ; elle enlève surtout les amortisseurs qui masquaient les approximations.</p><figure><img src=\"https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&q=80\" alt=\"Développeur travaillant sur du code dans un environnement moderne\" /><figcaption>L’enjeu n’est plus seulement d’écrire du code, mais de cadrer, vérifier et exploiter des sorties générées plus vite.</figcaption></figure><h2>Le nouveau goulot d’étranglement n’est pas le clavier</h2><p>Dans une équipe classique, le développeur était souvent le centre visible de la production. Avec les copilotes et agents, ce centre se déplace. Le product owner doit fournir un contexte exploitable par l’IA, le tech lead doit cadrer l’exécution, la QA doit définir les preuves attendues en amont, et l’architecture doit rester lisible malgré l’accélération.</p><p>C’est aussi ce que souligne le rapport DORA 2025 de Google Cloud : l’IA agit comme un <strong>amplificateur</strong>. Les équipes déjà structurées gagnent en débit et en performance produit ; les organisations fragiles voient surtout leurs faiblesses accélérées. Le même rapport indique que 90 % des répondants utilisent l’IA au travail, mais rappelle que l’adoption peut dégrader la stabilité de livraison si les plateformes internes, les tests et les workflows ne suivent pas.</p><div class=\"callout\"><strong>À retenir :</strong> l’IA n’est pas une rustine de process. Elle rend visibles les trous dans les specs, les tests, la documentation et les arbitrages produit.</div><h2>Les développeurs adoptent, mais ne signent pas un chèque blanc</h2><p>L’adoption est déjà massive. L’enquête Stack Overflow 2025 rapporte que <strong>84 %</strong> des répondants utilisent ou prévoient d’utiliser des outils IA dans leur processus de développement, et que <strong>51 %</strong> des développeurs professionnels les utilisent tous les jours. Mais la confiance reste le point dur : Stack Overflow indique aussi que 46 % des développeurs ne font pas confiance à l’exactitude des sorties générées par l’IA.</p><p>Ce chiffre change la lecture du phénomène. Le développeur ne devient pas spectateur. Il devient relecteur, chef d’orchestre, gardien du contexte et responsable de la preuve. Dans un codebase réel, la valeur ne se mesure pas au nombre de lignes produites, mais à la capacité de livrer sans casser.</p><h2>TypeScript, plateformes internes et agents : le signal GitHub</h2><p>GitHub observe la même bascule à grande échelle. Dans Octoverse 2025, la plateforme note que plus de <strong>1,1 million</strong> de dépôts publics utilisent désormais un SDK LLM, et que TypeScript est devenu le langage le plus utilisé sur GitHub. Ce n’est pas anodin : dans des workflows assistés par agents, les types, les contrats et les interfaces explicites deviennent une forme de garde-fou.</p><table><thead><tr><th>Avant l’IA agentique</th><th>Avec l’IA dans la chaîne</th></tr></thead><tbody><tr><td>Le développeur écrit l’essentiel du code</td><td>Le développeur cadre, révise et valide</td></tr><tr><td>Le backlog décrit des tâches humaines</td><td>Le contexte doit guider des agents</td></tr><tr><td>La QA arrive souvent en fin de chaîne</td><td>Les preuves attendues doivent être définies tôt</td></tr><tr><td>La productivité se lit par volume livré</td><td>La valeur se lit par résultat, stabilité et coût</td></tr></tbody></table><h2>Le FinOps de l’IA arrive dans les équipes dev</h2><p>L’autre changement est économique. Le Monde Informatique compare l’IA d’entreprise au cloud : un coût variable, récurrent, pilotable, mais dangereux s’il reste invisible. Le sujet n’est donc pas seulement de plafonner les tokens. Il faut rattacher la consommation à une équipe, un cycle, une fonctionnalité et une valeur métier.</p><p>Une équipe qui livre deux fois plus de prototypes mais triple ses coûts de validation n’a pas forcément gagné. À l’inverse, une équipe qui garde quelques portes de contrôle humaines — spécification, plan, revue, preuve de fonctionnement — peut bénéficier de la vitesse sans transformer chaque sprint en loterie.</p><div class=\"callout callout-success\"><strong>La bonne question pour 2026 :</strong> votre équipe n’a pas besoin de choisir entre humains et IA. Elle doit décider quelles étapes restent non négociables, quelles preuves sont exigées, et comment chaque euro d’IA se relie à une valeur livrée.</div>",
+  "sources": [
+    {
+      "title": "L'ingénierie logicielle à l'ère de l'IA : tout change... et rien ne change",
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-ingenierie-logicielle-a-l-ere-de-l-ia-tout-change-et-rien-ne-change-100320.html",
+      "publisher": "Le Monde Informatique"
+    },
+    {
+      "title": "Announcing the 2025 DORA Report",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report",
+      "publisher": "Google Cloud"
+    },
+    {
+      "title": "2025 Stack Overflow Developer Survey",
+      "url": "https://survey.stackoverflow.co/2025",
+      "publisher": "Stack Overflow"
+    },
+    {
+      "title": "Octoverse: A new developer joins GitHub every second as AI leads TypeScript to #1",
+      "url": "https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/",
+      "publisher": "GitHub"
+    }
+  ]
+}
