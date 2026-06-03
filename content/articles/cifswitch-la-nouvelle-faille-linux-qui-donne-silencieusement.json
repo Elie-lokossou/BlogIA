@@ -1,0 +1,51 @@
+{
+  "id": "cifswitch-la-nouvelle-faille-linux-qui-donne-silencieusement",
+  "title": "CIFSwitch : la faille Linux qui réveille un bug de 2007",
+  "slug": "cifswitch-la-nouvelle-faille-linux-qui-donne-silencieusement",
+  "category": "cybersecurite",
+  "tags": [
+    "cifswitch",
+    "linux",
+    "cve-2026-46243",
+    "cifs",
+    "securite-linux"
+  ],
+  "author": {
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
+  },
+  "publishedAt": "2026-06-03T00:16:26.022Z",
+  "coverImage": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80",
+  "readingTime": 5,
+  "featured": false,
+  "draft": true,
+  "excerpt": "CIFSwitch transforme une vieille faiblesse Linux en accès root local. Voici qui est exposé, pourquoi c'est sérieux et quoi vérifier.",
+  "content": "<h2>Un bug discret, 19 ans dans le noyau Linux</h2><p>Le 27 mai 2026, une faille baptisée <strong>CIFSwitch</strong> a remis un vieux réflexe de sécurité au centre de la table : ce n'est pas parce qu'un composant système est banal qu'il est inoffensif. Ici, le composant en question touche à CIFS/SMB, le mécanisme qui permet à Linux de monter des partages réseau souvent utilisés en entreprise.</p><p>Le chercheur Asim Manizada, ingénieur sécurité chez SpaceX, explique que le bug côté noyau remonte à 2007. Depuis, il dormait dans une zone rarement regardée par les équipes applicatives : l'enchaînement entre le noyau Linux, les trousseaux de clés et l'utilitaire <code>cifs.upcall</code> du paquet <code>cifs-utils</code>.</p><figure><img src='https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=900&q=80' alt='Visualisation de cybersécurité sur un écran sombre' /><figcaption>CIFSwitch illustre un risque classique : une chaîne de petits comportements légitimes qui, combinés, devient une escalade root.</figcaption></figure><h2>Pourquoi CIFSwitch peut donner root</h2><p>Dans un montage CIFS authentifié avec Kerberos, le noyau ne gère pas seul toute l'authentification. Il déclenche une demande de clé <code>cifs.spnego</code>, puis une règle <code>request-key</code> lance <code>cifs.upcall</code> avec des privilèges élevés.</p><p>Le problème tient à une vérification manquante : des champs comme <code>pid</code>, <code>uid</code>, <code>creduid</code> et <code>upcall_target</code> pouvaient être fournis depuis l'espace utilisateur comme s'ils venaient du client CIFS du noyau. Un utilisateur local non privilégié pouvait donc forger une description <code>cifs.spnego</code>, forcer l'assistant à basculer dans un namespace contrôlé, puis lui faire charger une bibliothèque NSS malveillante avant la baisse de privilèges.</p><blockquote>Le vrai danger n'est pas seulement le bug : c'est la confiance accordée à des paramètres qui avaient l'air internes, mais ne l'étaient pas toujours.</blockquote><h2>Une faille sérieuse, mais pas universelle</h2><p>Le point important pour les administrateurs : CIFSwitch n'est pas un bouton magique contre tous les serveurs Linux. L'exploitation dépend d'une combinaison précise : un noyau vulnérable, <code>cifs-utils</code> présent avec sa règle par défaut, le module CIFS disponible, et des namespaces utilisateur/montage accessibles aux comptes non privilégiés.</p><p>Des distributions comme Linux Mint, CentOS Stream 9, Rocky Linux 9, AlmaLinux 9, Kali Linux et SLES 15 SP7 font partie des environnements signalés comme exposés dans certaines configurations. À l'inverse, plusieurs systèmes sont bloqués par défaut par SELinux, AppArmor ou par une version de <code>cifs-utils</code> qui ne contient pas la partie exploitable de la chaîne.</p><table><thead><tr><th>Ce qu'il faut vérifier</th><th>Pourquoi c'est critique</th></tr></thead><tbody><tr><td><code>cifs-utils</code> installé</td><td>Il fournit l'assistant <code>cifs.upcall</code> impliqué dans la chaîne</td></tr><tr><td>Namespaces non privilégiés</td><td>Ils permettent de préparer l'environnement contrôlé par l'attaquant</td></tr><tr><td>Patch noyau appliqué</td><td>Le correctif rejette les descriptions <code>cifs.spnego</code> venues de l'espace utilisateur</td></tr><tr><td>SELinux/AppArmor</td><td>Les politiques peuvent bloquer l'exploitation selon la distribution</td></tr></tbody></table><h2>Le CVE est désormais assigné</h2><p>Les premiers articles publiés fin mai indiquaient encore qu'aucun identifiant CVE n'était attribué. La situation a évolué : au <strong>1er juin 2026</strong>, CIFSwitch est suivi sous <strong>CVE-2026-46243</strong>. Le correctif noyau référencé rejette les descriptions <code>cifs.spnego</code> qui ne viennent pas du chemin CIFS attendu.</p><p>Ce détail compte pour la veille sécurité : si votre tableau de bord ne cherche que le nom CIFSwitch, vous pouvez rater les alertes CVE ; si vous ne cherchez que le CVE, vous pouvez manquer les premiers billets de remédiation encore titrés avec le nom de la faille.</p><div class='callout callout-warning'><strong>À faire maintenant :</strong> vérifier les bulletins de votre distribution, appliquer le noyau corrigé, désinstaller <code>cifs-utils</code> si vous n'en avez pas besoin, ou neutraliser la règle <code>cifs.spnego</code> si Kerberos CIFS n'est pas utilisé.</div><h2>Ce que cette affaire raconte sur la sécurité en 2026</h2><p>CIFSwitch n'est pas seulement une faille Linux de plus. Elle montre comment les outils d'analyse assistés par IA peuvent accélérer la découverte de chaînes d'exploitation complexes, là où un audit manuel aurait pu ignorer le lien entre composants.</p><p>Pour les équipes IT, la leçon est plus pragmatique : les surfaces d'attaque ne se limitent pas aux applications exposées sur Internet. Les paquets installés “au cas où”, les helpers root et les configurations par défaut peuvent devenir des chemins d'escalade dès qu'un utilisateur local, un compte compromis ou un conteneur mal isolé entre dans l'équation.</p><div class='callout callout-success'><strong>À retenir :</strong> la bonne réponse n'est pas la panique, mais l'inventaire. Qui utilise CIFS ? Où <code>cifs-utils</code> est-il installé ? Quels noyaux ont reçu le patch ? Dans une infrastructure Linux moderne, ces trois questions valent mieux qu'un long discours.</div>",
+  "sources": [
+    {
+      "title": "CIFSwitch, la nouvelle faille Linux qui donne silencieusement les clés de votre système depuis 2007",
+      "url": "https://www.numerama.com/cyberguerre/2263683-cifswitch-la-nouvelle-faille-linux-qui-donne-silencieusement-les-cles-de-votre-systeme-depuis-2007.html",
+      "publisher": "Numerama"
+    },
+    {
+      "title": "Plusieurs distributions Linux vulnérables à la faille CIFSwitch",
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-plusieurs-distributions-linux-vulnerables-a-la-faille-cifswitch-100326.html",
+      "publisher": "Le Monde Informatique"
+    },
+    {
+      "title": "CIFSwitch: a non-universal Linux local root vulnerability",
+      "url": "https://heyitsas.im/posts/cifswitch/",
+      "publisher": "Hey, it's Asim"
+    },
+    {
+      "title": "CIFSwitch: Linux kernel/cifs-utils local root via forged cifs.spnego upcall",
+      "url": "https://www.openwall.com/lists/oss-security/2026/05/28/2",
+      "publisher": "oss-security / Openwall"
+    },
+    {
+      "title": "CVE-2026-46243 assignment for CIFSwitch",
+      "url": "https://www.openwall.com/lists/oss-security/2026/06/01/6",
+      "publisher": "oss-security / Openwall"
+    }
+  ]
+}
