@@ -1,0 +1,41 @@
+{
+  "id": "ne-mangez-pas-les-chocopoc-comment-des-chercheurs-en-cyberse",
+  "title": "ChocoPoC : le piège des faux exploits GitHub",
+  "slug": "ne-mangez-pas-les-chocopoc-comment-des-chercheurs-en-cyberse",
+  "category": "cybersecurite",
+  "tags": [
+    "chocopoc",
+    "github",
+    "supply-chain",
+    "pypi",
+    "chercheurs-cyber"
+  ],
+  "author": {
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
+  },
+  "publishedAt": "2026-07-06T08:02:42.643Z",
+  "coverImage": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&q=80",
+  "readingTime": 5,
+  "featured": false,
+  "draft": true,
+  "excerpt": "Des faux PoC GitHub ont piégé des chercheurs cyber via PyPI. ChocoPoC rappelle que la vraie menace se cache souvent dans les dépendances.",
+  "content": "<h2>Le piège n'était pas dans l'exploit, mais autour</h2><p>Le 25 juin 2026, l'équipe de YesWeHack reçoit une notification GitHub comme il en arrive souvent dans le monde de la recherche en vulnérabilités : un internaute propose deux PoC, ces petits programmes qui démontrent qu'une faille est exploitable, pour une vulnérabilité critique touchant un plugin Joomla.</p><p>Dans ce métier, chaque heure compte. Plus une faille est médiatisée, plus les équipes de scan, de pentest et de bug bounty doivent comprendre vite, tester vite, prévenir vite. C'est précisément cette urgence que les attaquants ont exploitée. Le code principal avait l'air plausible. Le poison, lui, était caché dans les dépendances.</p><figure><img src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&q=80' alt='Ordinateur affichant du code et des outils de cybersécurité' /><figcaption>ChocoPoC vise un réflexe courant des chercheurs : cloner un dépôt, installer les dépendances, exécuter le PoC en laboratoire.</figcaption></figure><h2>Une chaîne PyPI taillée pour tromper les chercheurs</h2><p>L'enquête publiée le 1er juillet 2026 par YesWeHack et Sekoia décrit une mécanique discrète. Le dépôt GitHub piégé référence un paquet PyPI nommé <code>frint</code>. Celui-ci installe à son tour <code>skytext</code>, présenté comme une bibliothèque de couleurs terminal. En réalité, <code>skytext</code> embarque une extension native compilée, <code>gradient.so</code> sur Linux et <code>gradient.pyd</code> sur Windows.</p><p>Le détail important : le malware ne se déclenche pas n'importe quand. Il vérifie le contexte d'exécution et attend des noms typiques de PoC, comme <code>exploit_poc.py</code>. Cette condition réduit les chances de détection par un antivirus ou une sandbox qui analyse les paquets isolément, sans rejouer le scénario complet.</p><figure class='diagram'><svg viewBox='0 0 760 220' role='img' aria-label='Chaîne d infection ChocoPoC depuis GitHub vers PyPI puis Mapbox et le poste chercheur'><text x='380' y='28' text-anchor='middle' font-family='sans-serif' font-size='16' font-weight='700' fill='#4c1d95'>La frontière de confiance se déplace vers les dépendances</text><g font-family='sans-serif' font-size='13'><rect x='25' y='72' width='140' height='80' rx='12' fill='#f3f4f6' stroke='#6b7280'/><text x='95' y='105' text-anchor='middle' font-weight='700' fill='#111827'>GitHub</text><text x='95' y='128' text-anchor='middle' fill='#4b5563'>faux PoC CVE</text><text x='183' y='118' font-size='24' fill='#7c3aed'>&#8594;</text><rect x='215' y='72' width='140' height='80' rx='12' fill='#ede9fe' stroke='#7c3aed'/><text x='285' y='105' text-anchor='middle' font-weight='700' fill='#4c1d95'>PyPI</text><text x='285' y='128' text-anchor='middle' fill='#4b5563'>frint + skytext</text><text x='373' y='118' font-size='24' fill='#7c3aed'>&#8594;</text><rect x='405' y='72' width='140' height='80' rx='12' fill='#ffedd5' stroke='#f97316'/><text x='475' y='105' text-anchor='middle' font-weight='700' fill='#9a3412'>Mapbox</text><text x='475' y='128' text-anchor='middle' fill='#4b5563'>dead drop RAT</text><text x='563' y='118' font-size='24' fill='#f97316'>&#8594;</text><rect x='595' y='72' width='140' height='80' rx='12' fill='#fee2e2' stroke='#dc2626'/><text x='665' y='105' text-anchor='middle' font-weight='700' fill='#991b1b'>Poste</text><text x='665' y='128' text-anchor='middle' fill='#4b5563'>secrets volés</text></g></svg><figcaption>Le dépôt peut sembler propre : l'exécution malveillante est déléguée à une dépendance transitive puis à un service légitime détourné.</figcaption></figure><h2>ChocoPoC vole les secrets qui valent cher</h2><p>Le payload final, baptisé ChocoPoC, est un RAT Python. D'après l'analyse technique, il peut exécuter des commandes, lancer du code Python, récupérer des fichiers, collecter l'historique shell et extraire mots de passe, cookies, données d'autoremplissage et historique de navigation depuis Chrome, Brave, Edge ou Firefox.</p><p>Pour une entreprise, le risque dépasse largement le poste infecté. Les chercheurs en vulnérabilités manipulent souvent des environnements de test, des rapports clients, des accès à des dépôts privés et des informations sur des systèmes exposés. Compromettre une machine de recherche, c'est parfois obtenir une carte d'entrée vers plusieurs chaînes logicielles.</p><h2>Une campagne, pas un incident isolé</h2><p>YesWeHack et Sekoia indiquent avoir identifié au moins sept dépôts GitHub piégés, liés à des CVE touchant notamment FortiWeb, PAN-OS, Ivanti Sentry, Check Point VPN ou Joomla SP Page Builder. BleepingComputer rapporte aussi environ 2 400 téléchargements de <code>skytext</code>, avec des pics alignés sur la publication de vulnérabilités très suivies.</p><p>Le plus inquiétant est la continuité : des paquets proches, comme <code>slogsec</code> et <code>logcrypt.cryptography</code>, auraient déjà servi à des campagnes similaires fin 2025. Les attaquants ne cherchent donc pas le coup spectaculaire, mais une méthode répétable : publier vite, profiter de la curiosité technique, puis changer de comptes GitHub, PyPI ou Mapbox quand l'infrastructure est repérée.</p><div class='callout callout-warning'><strong>Signal faible à prendre au sérieux :</strong> un dépôt PoC récent, publié par un compte neuf, qui demande d'installer une dépendance PyPI fraîchement créée doit être traité comme du code hostile, même si le fichier d'exploit visible paraît propre.</div><h2>La bonne réponse : isoler, lire, verrouiller</h2><p>Le réflexe ne peut plus être seulement « relire le script ». Il faut inspecter <code>requirements.txt</code>, <code>pyproject.toml</code>, les dépendances transitives et les roues natives. L'exécution doit se faire dans une VM jetable, sans cookies de navigateur, sans clés SSH, sans jetons cloud et sans accès aux dépôts internes.</p><p>ChocoPoC raconte une bascule : la supply chain offensive ne cible plus seulement les développeurs qui publient en production. Elle cible aussi ceux qui protègent les systèmes. Pour les équipes cyber, la règle devient simple : un PoC téléchargé n'est pas un outil, c'est d'abord un échantillon suspect.</p><div class='callout callout-success'><strong>À retenir :</strong> avant d'exécuter un PoC inconnu, reconstruisez l'environnement hors ligne, auditez les dépendances, bloquez les secrets et considérez chaque paquet natif comme une zone rouge.</div>",
+  "sources": [
+    {
+      "title": "« Ne mangez pas les ChocoPoC ! » : comment des chercheurs en cybersécurité ont été piégés par de faux exploits sur GitHub",
+      "url": "https://www.numerama.com/cyberguerre/2289863-ne-mangez-pas-les-chocopoc-comment-des-chercheurs-en-cybersecurite-ont-ete-pieges-par-de-faux-exploits-sur-github.html",
+      "publisher": "Numerama"
+    },
+    {
+      "title": "Don’t eat the ChocoPoCs! How vulnerability researchers were repeatedly targeted by trojanised exploits",
+      "url": "https://www.yeswehack.com/news/chocopocs-vulnerability-researchers-trojanised-exploits",
+      "publisher": "YesWeHack / Sekoia"
+    },
+    {
+      "title": "New ChocoPoC malware targets researchers via trojanized PoC exploits",
+      "url": "https://www.bleepingcomputer.com/news/security/new-chocopoc-malware-targets-researchers-via-trojanized-poc-exploits/",
+      "publisher": "BleepingComputer"
+    }
+  ]
+}
