@@ -1,0 +1,45 @@
+{
+  "id": "des-agents-ia-pieges-par-l-injection-indirecte-de-prompts",
+  "title": "Agents IA : le web devient un piège à prompts",
+  "slug": "des-agents-ia-pieges-par-l-injection-indirecte-de-prompts",
+  "category": "intelligence-artificielle",
+  "tags": [
+    "agents-ia",
+    "prompt-injection",
+    "securite-ia",
+    "llm"
+  ],
+  "author": {
+    "name": "John Elie LOKOSSOU",
+    "bio": "Créateur de BlogIA · Développement, IA & cybersécurité"
+  },
+  "publishedAt": "2026-07-08T08:04:31.748Z",
+  "coverImage": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
+  "readingTime": 5,
+  "featured": false,
+  "draft": true,
+  "excerpt": "Zscaler montre comment des pages web piégées peuvent manipuler des agents IA autonomes. Le vrai risque : donner des outils à une IA trop confiante.",
+  "content": "<h2>Le piège ne parle plus à l'humain, mais à son agent IA</h2><p>Le 8 juillet 2026, <strong>Le Monde Informatique</strong> a remis sur la table un scénario qui paraît presque absurde : un site web malveillant cache des instructions invisibles, un agent IA les lit pendant sa navigation, puis les traite comme une étape normale de sa mission.</p><p>Ce n'est pas un jailbreak spectaculaire tapé dans une fenêtre de chat. C'est plus discret. L'attaque attend dans une page, un bloc HTML, une métadonnée ou un faux site bien référencé. Quand l'agent passe, il ramasse le poison avec le reste du contenu.</p><figure><img src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=900&q=80' alt='Visualisation abstraite d'un réseau neuronal et de signaux numériques' /><figcaption>Avec les agents autonomes, le web devient aussi une surface d'instructions pour les modèles.</figcaption></figure><h2>Ce que Zscaler a observé</h2><p>Dans une analyse publiée le <strong>2 juillet 2026</strong>, les chercheurs de Zscaler ThreatLabz décrivent deux campagnes d'<strong>injection indirecte de prompts</strong>. La première se présente comme une documentation de développement autour d'un faux module Python. Elle combine SEO poisoning, données structurées JSON-LD et contenu caché par CSS pour convaincre un agent qu'une licence développeur à 3 dollars est une étape légitime.</p><p>La seconde campagne usurpe l'écosystème DeBank avec un domaine de typosquatting. Le site tente de se faire passer pour une source officielle auprès des agents ou systèmes RAG qui collectent du contenu web.</p><div class='callout callout-warning'><strong>Le détail inquiétant :</strong> l'agent n'a pas besoin de voir une page « suspecte » comme un humain. Il traite des morceaux de DOM, de métadonnées et de texte caché que l'utilisateur ne lit jamais.</div><h2>26 modèles testés, des résultats à manier avec prudence</h2><p>Zscaler a testé un agent autonome connecté au web et, dans le premier scénario, à un outil de paiement dans un environnement sandboxé. Sur <strong>26 grands modèles de langage</strong>, quatre ont échoué à prendre les bonnes décisions dans la campagne de paiement : Llama 3.3 70B Instruct, Llama 3.2 90B Vision Instruct, Gemini 3 Flash et Gemini 2.5 Pro.</p><p>Dans le scénario DeBank, deux modèles ont mal classé le faux site selon le contexte fourni. Fait important : lorsque le site officiel DeBank était aussi donné comme référence, aucun modèle n'a validé le domaine frauduleux. Autrement dit, ce n'est pas seulement le modèle qui compte. Le contexte, les sources de référence et l'architecture de l'agent changent le résultat.</p><blockquote>Un agent vulnérable aujourd'hui peut réussir le même test plus tard. Mais une architecture trop permissive restera fragile, même avec un meilleur modèle.</blockquote><h2>Pourquoi les agents sont plus faciles à tromper qu'on ne le croit</h2><p>Un humain qui tombe sur une demande de paiement au milieu d'une documentation technique hésite. Il cherche le nom de l'éditeur, compare l'URL, repère la rupture de logique. Un agent, lui, peut intégrer cette demande dans son plan si elle est présentée comme une donnée structurée ou une étape de procédure.</p><p>C'est le coeur du problème : le modèle reçoit dans la même fenêtre de contexte les consignes de l'utilisateur, les données du web et parfois les sorties d'outils. Si une page externe contient une instruction malveillante, la frontière entre « donnée à lire » et « ordre à suivre » devient floue.</p><figure class='diagram'><svg viewBox='0 0 760 260' role='img' aria-label='Chaîne de risque d'une injection indirecte de prompts'><text x='380' y='28' text-anchor='middle' font-family='sans-serif' font-size='16' font-weight='700' fill='#4c1d95'>Comment une page web devient une instruction pour l'agent</text><g font-family='sans-serif' font-size='13'><rect x='30' y='70' width='150' height='90' rx='14' fill='#ede9fe' stroke='#7c3aed' stroke-width='2'/><text x='105' y='105' text-anchor='middle' font-weight='700' fill='#4c1d95'>Page piégée</text><text x='105' y='130' text-anchor='middle' fill='#6b7280'>HTML, CSS, JSON-LD</text><text x='205' y='122' text-anchor='middle' font-size='26' fill='#a78bfa'>&#8594;</text><rect x='230' y='70' width='150' height='90' rx='14' fill='#f5f3ff' stroke='#7c3aed' stroke-width='2'/><text x='305' y='105' text-anchor='middle' font-weight='700' fill='#4c1d95'>Agent IA</text><text x='305' y='130' text-anchor='middle' fill='#6b7280'>lit et planifie</text><text x='405' y='122' text-anchor='middle' font-size='26' fill='#fb923c'>&#8594;</text><rect x='430' y='70' width='150' height='90' rx='14' fill='#ffedd5' stroke='#f97316' stroke-width='2'/><text x='505' y='105' text-anchor='middle' font-weight='700' fill='#9a3412'>Outil sensible</text><text x='505' y='130' text-anchor='middle' fill='#9a3412'>paiement, mail, API</text><text x='605' y='122' text-anchor='middle' font-size='26' fill='#fb923c'>&#8594;</text><rect x='630' y='70' width='100' height='90' rx='14' fill='#fee2e2' stroke='#dc2626' stroke-width='2'/><text x='680' y='105' text-anchor='middle' font-weight='700' fill='#991b1b'>Abus</text><text x='680' y='130' text-anchor='middle' fill='#991b1b'>action non voulue</text></g><text x='380' y='215' text-anchor='middle' font-family='sans-serif' font-size='13' fill='#6b7280'>Le risque explose quand contenu non fiable, autonomie et permissions fortes se rencontrent.</text></svg><figcaption>L'injection indirecte devient critique lorsque l'agent peut agir, pas seulement répondre.</figcaption></figure><h2>La défense n'est pas un meilleur prompt magique</h2><p>Microsoft recommande de partir d'une hypothèse simple : l'injection indirecte finira par arriver. Les protections doivent donc être superposées : isolation du contenu non fiable, marquage des données externes, détection des écarts de plan, agents critiques, analyse de la chaîne d'outils, privilèges courts et validation humaine pour les actions risquées.</p><p>OWASP décrit la même famille de menace : des instructions malveillantes peuvent être intégrées dans une page web ou un email que le modèle traitera plus tard. Pour une entreprise, la bonne question n'est donc pas « quel modèle résiste le mieux ? » mais « que peut faire l'agent si un contenu le manipule ? ».</p><div class='callout callout-success'><strong>À retenir :</strong> un agent IA devrait lire le web comme une zone hostile. Pas de paiement, d'envoi d'email, de suppression de données ou d'appel API sensible sans garde-fou explicite.</div><h2>Ce que cela change pour les équipes produit</h2><p>Les agents IA promettent de transformer les tâches répétitives : chercher, comparer, réserver, coder, acheter, répondre. Mais chaque nouvelle capacité élargit aussi le rayon d'action d'une attaque. Le web n'est plus seulement une source d'information ; il devient une surface de commande potentielle.</p><p>Avant de brancher un agent à des outils réels, les équipes devraient imposer trois réflexes : limiter les permissions par défaut, journaliser les décisions et demander une confirmation humaine dès qu'une action sort du simple conseil. C'est moins spectaculaire qu'un modèle plus puissant. C'est pourtant ce qui évite qu'une page invisible prenne la main.</p>",
+  "sources": [
+    {
+      "title": "Des agents IA piégés par l'injection indirecte de prompts",
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-des-agents-ia-pieges-par-l-injection-indirecte-de-prompts-100676.html",
+      "publisher": "Le Monde Informatique"
+    },
+    {
+      "title": "Indirect Prompt Injection in Web Content Targets AI Agents",
+      "url": "https://www.zscaler.com/blogs/security-research/indirect-prompt-injection-web-content-targets-ai-agents",
+      "publisher": "Zscaler ThreatLabz"
+    },
+    {
+      "title": "Defend against indirect prompt injection attacks",
+      "url": "https://learn.microsoft.com/en-us/security/zero-trust/sfi/defend-indirect-prompt-injection",
+      "publisher": "Microsoft Learn"
+    },
+    {
+      "title": "Prompt Injection",
+      "url": "https://owasp.org/www-community/attacks/PromptInjection",
+      "publisher": "OWASP Foundation"
+    }
+  ]
+}
